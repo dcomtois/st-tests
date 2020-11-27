@@ -43,7 +43,7 @@ view(dfs2, method="browser", col.widths = c(240, 240, 240), footnote = "3 equal 
 
 st_options('reset')
 st_options(lang = lang)
-st_options(tmp.img.dir = "/tmp")
+st_options(tmp.img.dir = "tmp")
 st_options(footnote = "Placeholder footnote")
 
 tobacco$disease.f <- as.factor(tobacco$disease)
@@ -55,7 +55,7 @@ data(cars)
 view(dfs4, method="browser", footnote = "cars", file = "05-cars.html")
 
 # Test special variables (ean, binary, ternary, na's, etc)
-load(paste0(orig_dir, "data/special_vars.RData"))
+load(paste0(root_dir, "data/special_vars.RData"))
 (dfs_special <- dfSummary(special_vars))
 view(dfs_special, method = "browser", file = "06-special-vars.html")
 
