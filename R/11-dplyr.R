@@ -87,8 +87,12 @@ dfs2 %>% view()
 
 tobacco$gender %<>% fct_explicit_na()
 (dfs3 <- tobacco %>% group_by(gender) %>% dfSummary(valid.col = F))
-dfs3 %>% view(file = "16-dfSummary-group_by.html")
-dfs3 %>% view()
+dfs3 %>% view(file = "16-dfSummary-group_by.html", keep.grp.vars = T)
+dfs3 %>% view(file = "17-dfSummary-group_by-discard_grp_vars1.html")
+
+tobacco$age.gr %<>% fct_explicit_na()
+(dfs4 <- tobacco %>% group_by(gender, age.gr) %>% dfSummary(valid.col = F, keep.grp.vars = T))
+dfs4 %>% view(file = "18-dfSummary-group_by-discard_grp_vars2.html")
 
 st_options("reset")
 detach("package:summarytools")
