@@ -73,7 +73,7 @@ freq(tobacco$age.gr, order = "levels", report.nas = FALSE)
 freq(tobacco$age.gr, order = "levels-")
 freq(tobacco$age.gr, order = "lev-", report.nas = FALSE)
 
-
+freq(tobacco$disease, order = "freq", rows = 1:3, decimal.mark=",", report.nas = FALSE)
 
 # 1) Original order - character
 freq(tobacco$disease)
@@ -195,8 +195,11 @@ st_options(style = "simple")
 tobacco_subset <- tobacco[,c(3,5,6)]
 lapply(tobacco_subset, freq, style = "rmarkdown")
 
+st_options(freq.silent = T)
+lapply(tobacco_subset, freq, style = "rmarkdown")
+
 # Other global options
-st_options(freq.totals = FALSE, freq.report.nas = FALSE)
+st_options(freq.totals = FALSE, freq.report.nas = FALSE, freq.silent = FALSE)
 freq(tobacco)
 
 st_options(freq.totals = TRUE, freq.report.nas = TRUE)
