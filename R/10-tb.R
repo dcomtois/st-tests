@@ -184,11 +184,11 @@ tb(stby(tobacco, tobacco$gender, descr), order = 3)
 tb(stby(tobacco, list(tobacco$gender, tobacco$smoker), descr), order = 3)
 
 # Check use of variable named "method" (Issue #127)
-# tobacco$method <- tobacco$age.gr
-# tmp <- tobacco %>%
-#  group_by(method) %>%
-#  descr(BMI) %>%
-#  tb()
+tobacco$method <- tobacco$age.gr
+tmp <- tobacco %>%
+  group_by(method) %>%
+  descr(BMI) %>%
+  tb()
 
 st_options("reset")
 detach("package:summarytools")
