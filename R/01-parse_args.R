@@ -28,7 +28,7 @@ freq(smoker)
 
 # with
 with(tobacco, freq(smoker))           
-with(tobacco, descr(age))             
+with(tobacco, descr(age))
 with(tobacco, ctable(smoker, diseased))
 
 # pipe - magrittr
@@ -37,14 +37,18 @@ tobacco["smoker"] %>% freq()
 tobacco[["smoker"]] %>% freq()
 tobacco[,5] %>% freq()
 tobacco[[5]] %>% freq()
-if (lang != "ru") dfSummary(tobacco) %>% print(style = "grid", plain.ascii = FALSE)
+if (lang != "ru") 
+  dfSummary(tobacco[,1:3]) %>% print(style = "grid", plain.ascii = FALSE)
 tobacco %$% ctable(smoker, diseased)
 tobacco %>% select(age) %>% arrange() %>% descr(stats = "common")
 tobacco %>% select(age.gr)  %>% freq() # SUCCESS
 tobacco %>% group_by(gender) %>% descr()
 tobacco %>% group_by(gender) %>% freq(smoker)
 
-# pipe - pipeR
+dfSummary(iris) %>% print()
+freq(iris$Species) %>% print()
+
+# pipe - pipeR # library(pipeR)
 tobacco$smoker %>>% freq()      # OK
 tobacco[["smoker"]] %>>% freq() # OK
 tobacco["smoker"] %>>% freq()   # OK
@@ -56,6 +60,8 @@ tobacco %>>% select(age.gr) %>>% freq() # SUCCESS
 tobacco %>>% group_by(gender) %>>% descr()
 tobacco %>>% group_by(gender) %>>% freq(smoker)
 
+X <- tobacco$gender
+X %>>% freq()
 
 # by
 stby(tobacco$smoker, tobacco$gender, freq)          
@@ -69,9 +75,11 @@ stby(tobacco[,5], tobacco[,1], freq)
 stby(list(x = tobacco$smoker, y = tobacco$diseased), tobacco$gender, ctable) # ok
 
 # with + by
-with(tobacco, stby(smoker, gender, freq))                               
-with(tobacco, stby(list(x = smoker, y = diseased), gender, ctable))     
-with(tobacco[1:7], stby(list(x = smoker, y = diseased), gender, ctable))
+with(tobacco, stby(smoker, gender, freq, check.nas = FALSE))
+with(tobacco, 
+     stby(list(x = smoker, y = diseased), gender, ctable, useNA = TRUE))  
+with(tobacco[1:7],
+     stby(list(x = smoker, y = diseased), gender, ctable, check.nas = FALSE))
 
 # lapply
 print(lapply(tobacco[c(1,3,5)], freq))
@@ -83,3 +91,4 @@ detach("package:summarytools")
 detach("package:pipeR")
 detach("package:dplyr")
 detach("package:magrittr")
+

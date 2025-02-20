@@ -3,6 +3,7 @@ suppressPackageStartupMessages(library(summarytools))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(magrittr))
 data(tobacco)
+
 tobacco <- tibble::as_tibble(tobacco)
 label(tobacco$gender) <- "Subject's Gender"
 
@@ -220,12 +221,12 @@ iris %$% freq(Species, cumul = FALSE, report.nas = FALSE) %>% tb()
 tobacco %>% select(disease) %>% arrange() %>% freq(rows = 1:10)
 
 # Deal with explicited NA's
-tobacco$age.gr %<>% forcats::fct_explicit_na()
-freq(tobacco$age.gr)
+tobacco$age.gr %<>% forcats::fct_na_value_to_level("(Missing)")
+freq(tobacco$age.gr, na.val = "(Missing)")
 
 # Full dataframes
-(ftob1 <- freq(tobacco))
-(ftob2 <- freq(tobacco, display.type = FALSE))
+(ftob1 <- freq(tobacco, na.val = "(Missing)"))
+(ftob2 <- freq(tobacco, na.val = "(Missing)", display.type = FALSE))
 
 print(ftob1, file = "09-full-dataset.html", footnote = "With type")
 print(ftob2, file = "10-full-dataset-notype.html", footnote = "Without type")
@@ -259,6 +260,7 @@ view(fbigw4, file = "fbigw4.html")
 (fbig_w <- freq(bignum, weights = rep(tobacco$samp.wgts, 500), big.mark=" "))
 print(fbig_w, big.mark="'")
 print(fbig_w, big.mark=" ", decimal.mark=",")
+
 
 st_options("reset")
 detach("package:summarytools")

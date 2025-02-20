@@ -122,7 +122,7 @@ dd1 %>% tb(2)
 dd1 %>% tb(3)
 view(dd1, file = "dd1.html")
 
-tobacco$gender %<>% forcats::fct_explicit_na()
+tobacco$gender %<>% forcats::fct_na_value_to_level("(Missing)")
 (dd2 <- tobacco %>% group_by(gender) %>% descr(stats = "common"))
 dd2 %>% tb()
 dd2 %>% tb(2)
@@ -133,7 +133,7 @@ dd3 %>% tb()
 dd3 %>% tb(2)
 view(dd3, file = "dd3.html")
 
-tobacco$age.gr %<>% forcats::fct_explicit_na()
+tobacco$age.gr %<>% forcats::fct_na_value_to_level("(Missing)")
 (dd4 <- tobacco %>% group_by(gender, age.gr) %>% descr(stats = "common"))
 dd4 %>% tb()
 dd4 %>% tb(na.rm = TRUE) # no effect expected
@@ -146,7 +146,7 @@ data(tobacco)
 (ff1 <- stby(tobacco$smoker, tobacco$gender, freq))
 ff1 %>% tb()
 ff1 %>% tb(2)
-ff1 %>% tb(2, TRUE)
+ff1 |> tb(order = 2, na.rm = TRUE)
 view(ff1, file = "ff1.html")
 
 (ff2 <- stby(tobacco$smoker, tobacco$gender, freq, report.nas = F))
@@ -154,7 +154,7 @@ ff2 %>% tb()
 ff2 %>% tb(2)
 ff2 %>% tb(3)
 
-tobacco$gender %<>% forcats::fct_explicit_na()
+tobacco$gender %<>% forcats::fct_na_value_to_level("(Missing)")
 (ff3 <- tobacco %>% group_by(gender) %>% select(gender, smoker) %>% freq())
 ff3 %>% tb()
 ff3 %>% tb(2)
@@ -166,7 +166,7 @@ view(ff3, file = "ff3.html")
 # ff4 %>% tb()
 # ff4 %>% tb(2)
 
-tobacco$age.gr %<>% forcats::fct_explicit_na()
+tobacco$age.gr %<>% forcats::fct_na_value_to_level("(Missing)")
 (ff5 <- tobacco %>% group_by(gender, age.gr) %>% select(gender, age.gr, smoker) %>% freq())
 view(ff5, file = "ff5.html")
 ff5 %>% tb()
@@ -185,10 +185,20 @@ tb(stby(tobacco, list(tobacco$gender, tobacco$smoker), descr), order = 3)
 
 # Check use of variable named "method" (Issue #127)
 tobacco$method <- tobacco$age.gr
-tmp <- tobacco %>%
+tobacco %>%
   group_by(method) %>%
   descr(BMI) %>%
   tb()
+
+# Additions 2024
+# Check stby + tb
+freq(tobacco[,c(1,3)]) |> tb()
+frby <- with(tobacco, stby(diseased, list(gender, smoker),
+                           freq, useNA = T))
+tb(frby)
+
+(dst <- tobacco %$% stby(tobacco, list(gender, smoker), descr, stats = c("mean", "n", "n.valid"), transpose = TRUE, useNA = TRUE))
+tb(dst, 2, fct.to.chr = TRUE)
 
 st_options("reset")
 detach("package:summarytools")

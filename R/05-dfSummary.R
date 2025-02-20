@@ -2,7 +2,6 @@
 suppressPackageStartupMessages(library(summarytools))
 st_options(tmp.img.dir = "/tmp")
 options(tibble.print_max = Inf)
-
 data(tobacco)
 tobacco <- tibble::as_tibble(tobacco)
 
@@ -72,7 +71,6 @@ view(dfSummary(AirPassengers), file = "07-AirPassengers.html")
 dfSummary(tobacco[1:100,])
 print(dfSummary(tobacco[1:100,1:4]), footnote = "subset = [1:100, 1:4]", file = "08-tobacco-subset.html")
 
-
 # round.digits and frequencies
 tobacco$samp.wgts.3 <- round(tobacco$samp.wgts, 3)
 tobacco$samp.wgts.3[tobacco$samp.wgts.3 == 0.861] <- 0
@@ -87,6 +85,10 @@ print(dfSummary(tobacco, graph.magnif = 0.8), table.classes = 'st-small', footno
 
 # render
 print(dfSummary(tobacco), method = "render")
+
+# duplicate and invalid emails
+users <- readRDS(paste0(root_dir, "data/users.RDs"))
+dfSummary(users)
 
 st_options("reset")
 detach("package:summarytools")

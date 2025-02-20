@@ -16,23 +16,24 @@ Descriptive Statistics
 tobacco  
 N: 1000  
 
-                       age      BMI   cigs.per.day   samp.wgts
------------------ -------- -------- -------------- -----------
-             Mean    49.60    25.73           6.78        1.00
-          Std.Dev    18.29     4.49          11.88        0.08
-              Min    18.00     8.83           0.00        0.86
-               Q1    34.00    22.93           0.00        0.86
-           Median    50.00    25.62           0.00        1.04
-               Q3    66.00    28.65          11.00        1.05
-              Max    80.00    39.44          40.00        1.06
-              MAD    23.72     4.18           0.00        0.01
-              IQR    32.00     5.72          11.00        0.19
-               CV     0.37     0.17           1.75        0.08
-         Skewness    -0.04     0.02           1.54       -1.04
-      SE.Skewness     0.08     0.08           0.08        0.08
-         Kurtosis    -1.26     0.26           0.90       -0.90
-          N.Valid   975.00   974.00         965.00     1000.00
-        Pct.Valid    97.50    97.40          96.50      100.00
+                        age       BMI   cigs.per.day   samp.wgts
+----------------- --------- --------- -------------- -----------
+             Mean     49.60     25.73           6.78        1.00
+          Std.Dev     18.29      4.49          11.88        0.08
+              Min     18.00      8.83           0.00        0.86
+               Q1     34.00     22.93           0.00        0.86
+           Median     50.00     25.62           0.00        1.04
+               Q3     66.00     28.65          11.00        1.05
+              Max     80.00     39.44          40.00        1.06
+              MAD     23.72      4.18           0.00        0.01
+              IQR     32.00      5.72          11.00        0.19
+               CV      0.37      0.17           1.75        0.08
+         Skewness     -0.04      0.02           1.54       -1.04
+      SE.Skewness      0.08      0.08           0.08        0.08
+         Kurtosis     -1.26      0.26           0.90       -0.90
+          N.Valid    975.00    974.00         965.00     1000.00
+                N   1000.00   1000.00        1000.00     1000.00
+        Pct.Valid     97.50     97.40          96.50      100.00
 
 > print(d1, plain.ascii = F)
 Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
@@ -41,7 +42,7 @@ Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 **N:** 1000  
 
            &nbsp;      age      BMI   cigs.per.day   samp.wgts
------------------ -------- -------- -------------- -----------
+----------------- --------- --------- -------------- -----------
          **Mean**    49.60    25.73           6.78        1.00
       **Std.Dev**    18.29     4.49          11.88        0.08
           **Min**    18.00     8.83           0.00        0.86
@@ -56,7 +57,8 @@ Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
   **SE.Skewness**     0.08     0.08           0.08        0.08
      **Kurtosis**    -1.26     0.26           0.90       -0.90
       **N.Valid**   975.00   974.00         965.00     1000.00
-    **Pct.Valid**    97.50    97.40          96.50      100.00
+            **N**  1000.00  1000.00        1000.00     1000.00
+    **Pct.Valid**     97.50     97.40          96.50      100.00
 
 > print(d1, style = 'rmarkdown')
 Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
@@ -64,23 +66,24 @@ Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 #### tobacco  
 **N:** 1000  
 
-|          &nbsp; |    age |    BMI | cigs.per.day | samp.wgts |
-|----------------:|-------:|-------:|-------------:|----------:|
-|        **Mean** |  49.60 |  25.73 |         6.78 |      1.00 |
-|     **Std.Dev** |  18.29 |   4.49 |        11.88 |      0.08 |
-|         **Min** |  18.00 |   8.83 |         0.00 |      0.86 |
-|          **Q1** |  34.00 |  22.93 |         0.00 |      0.86 |
-|      **Median** |  50.00 |  25.62 |         0.00 |      1.04 |
-|          **Q3** |  66.00 |  28.65 |        11.00 |      1.05 |
-|         **Max** |  80.00 |  39.44 |        40.00 |      1.06 |
-|         **MAD** |  23.72 |   4.18 |         0.00 |      0.01 |
-|         **IQR** |  32.00 |   5.72 |        11.00 |      0.19 |
-|          **CV** |   0.37 |   0.17 |         1.75 |      0.08 |
-|    **Skewness** |  -0.04 |   0.02 |         1.54 |     -1.04 |
-| **SE.Skewness** |   0.08 |   0.08 |         0.08 |      0.08 |
-|    **Kurtosis** |  -1.26 |   0.26 |         0.90 |     -0.90 |
-|     **N.Valid** | 975.00 | 974.00 |       965.00 |   1000.00 |
-|   **Pct.Valid** |  97.50 |  97.40 |        96.50 |    100.00 |
+|          &nbsp; |     age |     BMI | cigs.per.day | samp.wgts |
+|----------------:|--------:|--------:|-------------:|----------:|
+|        **Mean** |   49.60 |   25.73 |         6.78 |      1.00 |
+|     **Std.Dev** |   18.29 |    4.49 |        11.88 |      0.08 |
+|         **Min** |   18.00 |    8.83 |         0.00 |      0.86 |
+|          **Q1** |   34.00 |   22.93 |         0.00 |      0.86 |
+|      **Median** |   50.00 |   25.62 |         0.00 |      1.04 |
+|          **Q3** |   66.00 |   28.65 |        11.00 |      1.05 |
+|         **Max** |   80.00 |   39.44 |        40.00 |      1.06 |
+|         **MAD** |   23.72 |    4.18 |         0.00 |      0.01 |
+|         **IQR** |   32.00 |    5.72 |        11.00 |      0.19 |
+|          **CV** |    0.37 |    0.17 |         1.75 |      0.08 |
+|    **Skewness** |   -0.04 |    0.02 |         1.54 |     -1.04 |
+| **SE.Skewness** |    0.08 |    0.08 |         0.08 |      0.08 |
+|    **Kurtosis** |   -1.26 |    0.26 |         0.90 |     -0.90 |
+|     **N.Valid** |  975.00 |  974.00 |       965.00 |   1000.00 |
+|           **N** | 1000.00 | 1000.00 |      1000.00 |   1000.00 |
+|   **Pct.Valid** |   97.50 |   97.40 |        96.50 |    100.00 |
 
 > print(d1, style = 'grid', plain.ascii = FALSE)
 Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
@@ -88,39 +91,41 @@ Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 #### tobacco  
 **N:** 1000  
 
-+-----------------+--------+--------+--------------+-----------+
-|          &nbsp; |    age |    BMI | cigs.per.day | samp.wgts |
-+=================+========+========+==============+===========+
-|        **Mean** |  49.60 |  25.73 |         6.78 |      1.00 |
-+-----------------+--------+--------+--------------+-----------+
-|     **Std.Dev** |  18.29 |   4.49 |        11.88 |      0.08 |
-+-----------------+--------+--------+--------------+-----------+
-|         **Min** |  18.00 |   8.83 |         0.00 |      0.86 |
-+-----------------+--------+--------+--------------+-----------+
-|          **Q1** |  34.00 |  22.93 |         0.00 |      0.86 |
-+-----------------+--------+--------+--------------+-----------+
-|      **Median** |  50.00 |  25.62 |         0.00 |      1.04 |
-+-----------------+--------+--------+--------------+-----------+
-|          **Q3** |  66.00 |  28.65 |        11.00 |      1.05 |
-+-----------------+--------+--------+--------------+-----------+
-|         **Max** |  80.00 |  39.44 |        40.00 |      1.06 |
-+-----------------+--------+--------+--------------+-----------+
-|         **MAD** |  23.72 |   4.18 |         0.00 |      0.01 |
-+-----------------+--------+--------+--------------+-----------+
-|         **IQR** |  32.00 |   5.72 |        11.00 |      0.19 |
-+-----------------+--------+--------+--------------+-----------+
-|          **CV** |   0.37 |   0.17 |         1.75 |      0.08 |
-+-----------------+--------+--------+--------------+-----------+
-|    **Skewness** |  -0.04 |   0.02 |         1.54 |     -1.04 |
-+-----------------+--------+--------+--------------+-----------+
-| **SE.Skewness** |   0.08 |   0.08 |         0.08 |      0.08 |
-+-----------------+--------+--------+--------------+-----------+
-|    **Kurtosis** |  -1.26 |   0.26 |         0.90 |     -0.90 |
-+-----------------+--------+--------+--------------+-----------+
-|     **N.Valid** | 975.00 | 974.00 |       965.00 |   1000.00 |
-+-----------------+--------+--------+--------------+-----------+
-|   **Pct.Valid** |  97.50 |  97.40 |        96.50 |    100.00 |
-+-----------------+--------+--------+--------------+-----------+
++-----------------+---------+---------+--------------+-----------+
+|          &nbsp; |     age |     BMI | cigs.per.day | samp.wgts |
++=================+=========+=========+==============+===========+
+|        **Mean** |   49.60 |   25.73 |         6.78 |      1.00 |
++-----------------+---------+---------+--------------+-----------+
+|     **Std.Dev** |   18.29 |    4.49 |        11.88 |      0.08 |
++-----------------+---------+---------+--------------+-----------+
+|         **Min** |   18.00 |    8.83 |         0.00 |      0.86 |
++-----------------+---------+---------+--------------+-----------+
+|          **Q1** |   34.00 |   22.93 |         0.00 |      0.86 |
++-----------------+---------+---------+--------------+-----------+
+|      **Median** |   50.00 |   25.62 |         0.00 |      1.04 |
++-----------------+---------+---------+--------------+-----------+
+|          **Q3** |   66.00 |   28.65 |        11.00 |      1.05 |
++-----------------+---------+---------+--------------+-----------+
+|         **Max** |   80.00 |   39.44 |        40.00 |      1.06 |
++-----------------+---------+---------+--------------+-----------+
+|         **MAD** |   23.72 |    4.18 |         0.00 |      0.01 |
++-----------------+---------+---------+--------------+-----------+
+|         **IQR** |   32.00 |    5.72 |        11.00 |      0.19 |
++-----------------+---------+---------+--------------+-----------+
+|          **CV** |    0.37 |    0.17 |         1.75 |      0.08 |
++-----------------+---------+---------+--------------+-----------+
+|    **Skewness** |   -0.04 |    0.02 |         1.54 |     -1.04 |
++-----------------+---------+---------+--------------+-----------+
+| **SE.Skewness** |    0.08 |    0.08 |         0.08 |      0.08 |
++-----------------+---------+---------+--------------+-----------+
+|    **Kurtosis** |   -1.26 |    0.26 |         0.90 |     -0.90 |
++-----------------+---------+---------+--------------+-----------+
+|     **N.Valid** |  975.00 |  974.00 |       965.00 |   1000.00 |
++-----------------+---------+---------+--------------+-----------+
+|           **N** | 1000.00 | 1000.00 |      1000.00 |   1000.00 |
++-----------------+---------+---------+--------------+-----------+
+|   **Pct.Valid** |   97.50 |   97.40 |        96.50 |    100.00 |
++-----------------+---------+---------+--------------+-----------+
 
 # -----------------  Global options
 > st_options(style = 'rmarkdown', descr.stats = "common", descr.transpose = TRUE)
@@ -131,22 +136,22 @@ Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 #### tobacco  
 **N:** 1000  
 
-|           &nbsp; |  Mean | Std.Dev |   Min | Median |   Max | N.Valid | Pct.Valid |
-|-----------------:|------:|--------:|------:|-------:|------:|--------:|----------:|
-|          **age** | 49.60 |   18.29 | 18.00 |  50.00 | 80.00 |  975.00 |     97.50 |
-|          **BMI** | 25.73 |    4.49 |  8.83 |  25.62 | 39.44 |  974.00 |     97.40 |
-| **cigs.per.day** |  6.78 |   11.88 |  0.00 |   0.00 | 40.00 |  965.00 |     96.50 |
-|    **samp.wgts** |  1.00 |    0.08 |  0.86 |   1.04 |  1.06 | 1000.00 |    100.00 |
+|           &nbsp; |  Mean | Std.Dev |   Min | Median |   Max | N.Valid |       N | Pct.Valid |
+|-----------------:|------:|--------:|------:|-------:|------:|--------:|--------:|----------:|
+|          **age** | 49.60 |   18.29 | 18.00 |  50.00 | 80.00 |  975.00 | 1000.00 |     97.50 |
+|          **BMI** | 25.73 |    4.49 |  8.83 |  25.62 | 39.44 |  974.00 | 1000.00 |     97.40 |
+| **cigs.per.day** |  6.78 |   11.88 |  0.00 |   0.00 | 40.00 |  965.00 | 1000.00 |     96.50 |
+|    **samp.wgts** |  1.00 |    0.08 |  0.86 |   1.04 |  1.06 | 1000.00 | 1000.00 |    100.00 |
 
 > print(d2, headings = FALSE)
 Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 
-|           &nbsp; |  Mean | Std.Dev |   Min | Median |   Max | N.Valid | Pct.Valid |
-|-----------------:|------:|--------:|------:|-------:|------:|--------:|----------:|
-|          **age** | 49.60 |   18.29 | 18.00 |  50.00 | 80.00 |  975.00 |     97.50 |
-|          **BMI** | 25.73 |    4.49 |  8.83 |  25.62 | 39.44 |  974.00 |     97.40 |
-| **cigs.per.day** |  6.78 |   11.88 |  0.00 |   0.00 | 40.00 |  965.00 |     96.50 |
-|    **samp.wgts** |  1.00 |    0.08 |  0.86 |   1.04 |  1.06 | 1000.00 |    100.00 |
+|           &nbsp; |  Mean | Std.Dev |   Min | Median |   Max | N.Valid |       N | Pct.Valid |
+|-----------------:|------:|--------:|------:|-------:|------:|--------:|--------:|----------:|
+|          **age** | 49.60 |   18.29 | 18.00 |  50.00 | 80.00 |  975.00 | 1000.00 |     97.50 |
+|          **BMI** | 25.73 |    4.49 |  8.83 |  25.62 | 39.44 |  974.00 | 1000.00 |     97.40 |
+| **cigs.per.day** |  6.78 |   11.88 |  0.00 |   0.00 | 40.00 |  965.00 | 1000.00 |     96.50 |
+|    **samp.wgts** |  1.00 |    0.08 |  0.86 |   1.04 |  1.06 | 1000.00 | 1000.00 |    100.00 |
 
 # -----------------  Silent Option
 > print(descr(tobacco), silent = TRUE)
@@ -154,12 +159,12 @@ Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 #### tobacco  
 **N:** 1000  
 
-|           &nbsp; |  Mean | Std.Dev |   Min | Median |   Max | N.Valid | Pct.Valid |
-|-----------------:|------:|--------:|------:|-------:|------:|--------:|----------:|
-|          **age** | 49.60 |   18.29 | 18.00 |  50.00 | 80.00 |  975.00 |     97.50 |
-|          **BMI** | 25.73 |    4.49 |  8.83 |  25.62 | 39.44 |  974.00 |     97.40 |
-| **cigs.per.day** |  6.78 |   11.88 |  0.00 |   0.00 | 40.00 |  965.00 |     96.50 |
-|    **samp.wgts** |  1.00 |    0.08 |  0.86 |   1.04 |  1.06 | 1000.00 |    100.00 |
+|           &nbsp; |  Mean | Std.Dev |   Min | Median |   Max | N.Valid |       N | Pct.Valid |
+|-----------------:|------:|--------:|------:|-------:|------:|--------:|--------:|----------:|
+|          **age** | 49.60 |   18.29 | 18.00 |  50.00 | 80.00 |  975.00 | 1000.00 |     97.50 |
+|          **BMI** | 25.73 |    4.49 |  8.83 |  25.62 | 39.44 |  974.00 | 1000.00 |     97.40 |
+| **cigs.per.day** |  6.78 |   11.88 |  0.00 |   0.00 | 40.00 |  965.00 | 1000.00 |     96.50 |
+|    **samp.wgts** |  1.00 |    0.08 |  0.86 |   1.04 |  1.06 | 1000.00 | 1000.00 |    100.00 |
 
 > st_options(descr.silent = TRUE)
 
@@ -168,12 +173,12 @@ Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 #### tobacco  
 **N:** 1000  
 
-|           &nbsp; |  Mean | Std.Dev |   Min | Median |   Max | N.Valid | Pct.Valid |
-|-----------------:|------:|--------:|------:|-------:|------:|--------:|----------:|
-|          **age** | 49.60 |   18.29 | 18.00 |  50.00 | 80.00 |  975.00 |     97.50 |
-|          **BMI** | 25.73 |    4.49 |  8.83 |  25.62 | 39.44 |  974.00 |     97.40 |
-| **cigs.per.day** |  6.78 |   11.88 |  0.00 |   0.00 | 40.00 |  965.00 |     96.50 |
-|    **samp.wgts** |  1.00 |    0.08 |  0.86 |   1.04 |  1.06 | 1000.00 |    100.00 |
+|           &nbsp; |  Mean | Std.Dev |   Min | Median |   Max | N.Valid |       N | Pct.Valid |
+|-----------------:|------:|--------:|------:|-------:|------:|--------:|--------:|----------:|
+|          **age** | 49.60 |   18.29 | 18.00 |  50.00 | 80.00 |  975.00 | 1000.00 |     97.50 |
+|          **BMI** | 25.73 |    4.49 |  8.83 |  25.62 | 39.44 |  974.00 | 1000.00 |     97.40 |
+| **cigs.per.day** |  6.78 |   11.88 |  0.00 |   0.00 | 40.00 |  965.00 | 1000.00 |     96.50 |
+|    **samp.wgts** |  1.00 |    0.08 |  0.86 |   1.04 |  1.06 | 1000.00 | 1000.00 |    100.00 |
 
 > print(descr(tobacco), silent = FALSE)
 Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
@@ -181,12 +186,12 @@ Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 #### tobacco  
 **N:** 1000  
 
-|           &nbsp; |  Mean | Std.Dev |   Min | Median |   Max | N.Valid | Pct.Valid |
-|-----------------:|------:|--------:|------:|-------:|------:|--------:|----------:|
-|          **age** | 49.60 |   18.29 | 18.00 |  50.00 | 80.00 |  975.00 |     97.50 |
-|          **BMI** | 25.73 |    4.49 |  8.83 |  25.62 | 39.44 |  974.00 |     97.40 |
-| **cigs.per.day** |  6.78 |   11.88 |  0.00 |   0.00 | 40.00 |  965.00 |     96.50 |
-|    **samp.wgts** |  1.00 |    0.08 |  0.86 |   1.04 |  1.06 | 1000.00 |    100.00 |
+|           &nbsp; |  Mean | Std.Dev |   Min | Median |   Max | N.Valid |       N | Pct.Valid |
+|-----------------:|------:|--------:|------:|-------:|------:|--------:|--------:|----------:|
+|          **age** | 49.60 |   18.29 | 18.00 |  50.00 | 80.00 |  975.00 | 1000.00 |     97.50 |
+|          **BMI** | 25.73 |    4.49 |  8.83 |  25.62 | 39.44 |  974.00 | 1000.00 |     97.40 |
+| **cigs.per.day** |  6.78 |   11.88 |  0.00 |   0.00 | 40.00 |  965.00 | 1000.00 |     96.50 |
+|    **samp.wgts** |  1.00 |    0.08 |  0.86 |   1.04 |  1.06 | 1000.00 | 1000.00 |    100.00 |
 
 > st_options(descr.silent = FALSE)
 
@@ -200,12 +205,12 @@ tobacco
 Label: A study on Tobacco and Health  
 N: 1000  
 
-                      Mean   Std.Dev     Min   Median     Max   N.Valid   Pct.Valid
------------------- ------- --------- ------- -------- ------- --------- -----------
-               age   49.60     18.29   18.00    50.00   80.00    975.00       97.50
-               BMI   25.73      4.49    8.83    25.62   39.44    974.00       97.40
-      cigs.per.day    6.78     11.88    0.00     0.00   40.00    965.00       96.50
-         samp.wgts    1.00      0.08    0.86     1.04    1.06   1000.00      100.00
+                      Mean   Std.Dev     Min   Median     Max   N.Valid         N   Pct.Valid
+------------------ ------- --------- ------- -------- ------- --------- --------- -----------
+               age   49.60     18.29   18.00    50.00   80.00    975.00   1000.00       97.50
+               BMI   25.73      4.49    8.83    25.62   39.44    974.00   1000.00       97.40
+      cigs.per.day    6.78     11.88    0.00     0.00   40.00    965.00   1000.00       96.50
+         samp.wgts    1.00      0.08    0.86     1.04    1.06   1000.00   1000.00      100.00
 
 > label(tobacco$BMI) <- "Body Mass Index"
 
@@ -215,13 +220,12 @@ N: 1000
 **Label:** Body Mass Index  
 **N:** 1000  
 
-|  &nbsp; |  Mean | Std.Dev |  Min | Median |   Max | N.Valid | Pct.Valid |
-|--------:|------:|--------:|-----:|-------:|------:|--------:|----------:|
-| **BMI** | 25.73 |    4.49 | 8.83 |  25.62 | 39.44 |  974.00 |     97.40 |
+|  &nbsp; |  Mean | Std.Dev |  Min | Median |   Max | N.Valid |       N | Pct.Valid |
+|--------:|------:|--------:|-----:|-------:|------:|--------:|--------:|----------:|
+| **BMI** | 25.73 |    4.49 | 8.83 |  25.62 | 39.44 |  974.00 | 1000.00 |     97.40 |
 
 # -----------------  print to files
 > print(d2, file = "01.html")
-Switching method to 'browser'
 Output file written
 
 > view(d2, footnote = "test: àéïôù", file = "02.html")
@@ -238,7 +242,6 @@ Output file written
 > some.long.variabl.name <- tobacco$age
 
 > print(descr(some.long.variable.name), file = "03.html")
-Switching method to 'browser'
 Output file written
 
 > view(descr(some.long.variabl.name), file = "04.html")
@@ -251,14 +254,15 @@ Output file written
 **N:** 1000  
 
 |        &nbsp; |   age |
-|--------------:|------:|
+|--------------:|-------:|
 |      **Mean** |  49.6 |
 |   **Std.Dev** |  18.3 |
 |       **Min** |  18.0 |
 |    **Median** |  50.0 |
 |       **Max** |  80.0 |
 |   **N.Valid** | 975.0 |
-| **Pct.Valid** |  97.5 |
+|         **N** | 1000.0 |
+| **Pct.Valid** |   97.5 |
 
 > view(d3,  file = "05.md")
 Switching method to 'pander'
@@ -314,14 +318,15 @@ Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 **N:** 1000  
 
 |        &nbsp; |    age |    BMI | cigs.per.day |
-|--------------:|-------:|-------:|-------------:|
+|--------------:|--------:|--------:|-------------:|
 |      **Mean** |  50.83 |  25.83 |         6.78 |
 |   **Std.Dev** |  17.95 |   4.48 |        11.86 |
 |       **Min** |  18.00 |   8.83 |         0.00 |
 |    **Median** |  52.00 |  25.68 |         0.00 |
 |       **Max** |  80.00 |  39.44 |        40.00 |
 |   **N.Valid** | 975.49 | 973.85 |       964.68 |
-| **Pct.Valid** |  97.55 |  97.38 |        96.47 |
+|         **N** | 1000.00 | 1000.00 |      1000.00 |
+| **Pct.Valid** |   97.55 |   97.38 |        96.47 |
 
 # -----------------  Weights (outside data frame)
 > wgts <- tobacco$samp.wgts
@@ -337,17 +342,17 @@ Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 **N:** 1000  
 
 |        &nbsp; |    age |    BMI | cigs.per.day |
-|--------------:|-------:|-------:|-------------:|
+|--------------:|--------:|--------:|-------------:|
 |      **Mean** |  50.83 |  25.83 |         6.78 |
 |   **Std.Dev** |  17.95 |   4.48 |        11.86 |
 |       **Min** |  18.00 |   8.83 |         0.00 |
 |    **Median** |  52.00 |  25.68 |         0.00 |
 |       **Max** |  80.00 |  39.44 |        40.00 |
 |   **N.Valid** | 975.49 | 973.85 |       964.68 |
-| **Pct.Valid** |  97.55 |  97.38 |        96.47 |
+|         **N** | 1000.00 | 1000.00 |      1000.00 |
+| **Pct.Valid** |   97.55 |   97.38 |        96.47 |
 
 > print(d5, file = "06.html", footnote = "Weights")
-Switching method to 'browser'
 Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 Output file written
 
@@ -361,14 +366,15 @@ Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 **N:** 1000  
 
 |        &nbsp; |    age |    BMI |
-|--------------:|-------:|-------:|
+|--------------:|--------:|--------:|
 |      **Mean** |  50.83 |  25.83 |
 |   **Std.Dev** |  17.95 |   4.48 |
 |       **Min** |  18.00 |   8.83 |
 |    **Median** |  52.00 |  25.68 |
 |       **Max** |  80.00 |  39.44 |
 |   **N.Valid** | 975.49 | 973.85 |
-| **Pct.Valid** |  97.55 |  97.38 |
+|         **N** | 1000.00 | 1000.00 |
+| **Pct.Valid** |   97.55 |   97.38 |
 
 Table: Table continues below
 
@@ -382,15 +388,17 @@ Table: Table continues below
 |    **Median** |         0.00 |
 |       **Max** |        40.00 |
 |   **N.Valid** |       964.68 |
+|         **N** |      1000.00 |
 | **Pct.Valid** |        96.47 |
 
 # -----------------  stby(), special case
 > (d7 <- stby(data = tobacco$BMI, INDICES = tobacco$gender, FUN = descr))
+NA detected in grouping variable(s); consider using useNA = TRUE
 ### Descriptive Statistics  
 #### BMI by gender  
 **Data Frame:** tobacco  
 **Label:** Body Mass Index  
-**N:** 489  
+**N:** 978  
 
 |        &nbsp; |      F |      M |
 |--------------:|-------:|-------:|
@@ -400,6 +408,7 @@ Table: Table continues below
 |    **Median** |  25.87 |  25.14 |
 |       **Max** |  39.44 |  36.76 |
 |   **N.Valid** | 475.00 | 477.00 |
+|         **N** | 489.00 | 489.00 |
 | **Pct.Valid** |  97.14 |  97.55 |
 
 > print(d7, file = "07.html")
@@ -408,7 +417,8 @@ Output file written
 
 # -----------------  stby() - whole data frame
 > (d8 <- stby(data = tobacco, INDICES = tobacco$gender, FUN = descr))
-Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
+NA detected in grouping variable(s); consider using useNA = TRUE
+Non-numerical variable(s) ignored: age.gr, smoker, diseased, disease
 ### Descriptive Statistics  
 #### tobacco  
 **Label:** A study on Tobacco and Health  
@@ -423,6 +433,7 @@ Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 |    **Median** |  50.00 |  25.87 |         0.00 |      1.04 |
 |       **Max** |  80.00 |  39.44 |        40.00 |      1.06 |
 |   **N.Valid** | 475.00 | 475.00 |       468.00 |    489.00 |
+|         **N** | 489.00 | 489.00 |       489.00 |    489.00 |
 | **Pct.Valid** |  97.14 |  97.14 |        95.71 |    100.00 |
 
 **Group:** gender = M  
@@ -436,11 +447,12 @@ Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 |    **Median** |  49.50 |  25.14 |         0.00 |      1.04 |
 |       **Max** |  80.00 |  36.76 |        40.00 |      1.06 |
 |   **N.Valid** | 478.00 | 477.00 |       475.00 |    489.00 |
+|         **N** | 489.00 | 489.00 |       489.00 |    489.00 |
 | **Pct.Valid** |  97.75 |  97.55 |        97.14 |    100.00 |
 
 > view(d8, file = "08.md")
 Switching method to 'pander'
-Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
+Non-numerical variable(s) ignored: age.gr, smoker, diseased, disease
 Output file written
 Output file appended
 
@@ -448,11 +460,12 @@ Output file appended
 > label(tobacco$BMI) <- "Body Mass Index"
 
 > (d9 <- with(tobacco, stby(BMI, gender, descr)))
+NA detected in grouping variable(s); consider using useNA = TRUE
 ### Descriptive Statistics  
 #### BMI by gender  
 **Data Frame:** tobacco  
 **Label:** Body Mass Index  
-**N:** 489  
+**N:** 978  
 
 |        &nbsp; |      F |      M |
 |--------------:|-------:|-------:|
@@ -462,6 +475,7 @@ Output file appended
 |    **Median** |  25.87 |  25.14 |
 |       **Max** |  39.44 |  36.76 |
 |   **N.Valid** | 475.00 | 477.00 |
+|         **N** | 489.00 | 489.00 |
 | **Pct.Valid** |  97.14 |  97.55 |
 
 > view(d9, file = "09.html")
@@ -469,7 +483,60 @@ Output file written
 
 # -----------------  by with weights
 > (d10 <- stby(tobacco, tobacco$smoker, descr, weights = tobacco$samp.wgts))
-Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
+Non-numerical variable(s) ignored: gender, age.gr, diseased, disease
+### Weighted Descriptive Statistics  
+#### tobacco  
+**Label:** A study on Tobacco and Health  
+**Weights:** samp.wgts  
+**Group:** smoker = Yes  
+**N:** 298.27  
+
+|        &nbsp; |    age |    BMI | cigs.per.day |
+|--------------:|-------:|-------:|-------------:|
+|      **Mean** |  51.01 |  25.70 |        22.45 |
+|   **Std.Dev** |  18.37 |   4.26 |        10.70 |
+|       **Min** |  19.00 |   9.01 |         5.00 |
+|    **Median** |  53.00 |  25.71 |        22.00 |
+|       **Max** |  80.00 |  36.36 |        40.00 |
+|   **N.Valid** | 290.63 | 291.50 |       291.30 |
+|         **N** | 298.27 | 298.27 |       298.27 |
+| **Pct.Valid** |  97.44 |  97.73 |        97.66 |
+
+**Group:** smoker = No  
+**N:** 701.73  
+
+|        &nbsp; |    age |    BMI | cigs.per.day |
+|--------------:|-------:|-------:|-------------:|
+|      **Mean** |  50.75 |  25.88 |         0.00 |
+|   **Std.Dev** |  17.78 |   4.57 |         0.00 |
+|       **Min** |  18.00 |   8.83 |         0.00 |
+|    **Median** |  52.00 |  25.67 |         0.00 |
+|       **Max** |  80.00 |  39.44 |         0.00 |
+|   **N.Valid** | 684.86 | 682.35 |       673.38 |
+|         **N** | 701.73 | 701.73 |       701.73 |
+| **Pct.Valid** |  97.60 |  97.24 |        95.96 |
+
+> view(d10)
+Non-numerical variable(s) ignored: gender, age.gr, diseased, disease
+Output file written
+Output file appended
+
+> d10 |> tb()
+# A tibble: 6 × 10
+  smoker variable      mean    sd   min   med   max n.valid     n pct.valid
+  <fct>  <chr>        <dbl> <dbl> <dbl> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+1 Yes    age           51.0 18.4  19     53    80      291.  298.      97.4
+2 Yes    BMI           25.7  4.26  9.01  25.7  36.4    292.  298.      97.7
+3 Yes    cigs.per.day  22.4 10.7   5     22    40      291.  298.      97.7
+4 No     age           50.8 17.8  18     52    80      685.  702.      97.6
+5 No     BMI           25.9  4.57  8.83  25.7  39.4    682.  702.      97.2
+6 No     cigs.per.day   0    0     0      0     0      673.  702.      96.0
+
+# -----------------  group_by with weights
+> library(dplyr)
+
+> (d10_gb <- tobacco %>% dplyr::group_by(smoker) %>% descr(weights = samp.wgts))
+Non-numerical variable(s) ignored: gender, age.gr, diseased, disease
 ### Weighted Descriptive Statistics  
 #### tobacco  
 **Label:** A study on Tobacco and Health  
@@ -479,50 +546,58 @@ Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
 
 |        &nbsp; |    age |    BMI | cigs.per.day |
 |--------------:|-------:|-------:|-------------:|
-|      **Mean** |  49.80 |  25.66 |        22.54 |
-|   **Std.Dev** |  18.75 |   4.22 |        10.69 |
+|      **Mean** |  51.01 |  25.70 |        22.45 |
+|   **Std.Dev** |  18.37 |   4.26 |        10.70 |
 |       **Min** |  19.00 |   9.01 |         5.00 |
-|    **Median** |  50.00 |  25.70 |        22.00 |
+|    **Median** |  53.00 |  25.71 |        22.00 |
 |       **Max** |  80.00 |  36.36 |        40.00 |
-|   **N.Valid** | 291.00 | 292.08 |       292.26 |
-| **Pct.Valid** |  29.10 |  29.21 |        29.23 |
+|   **N.Valid** | 290.63 | 291.50 |       291.30 |
+|         **N** | 298.27 | 298.27 |       298.27 |
+| **Pct.Valid** |  97.44 |  97.73 |        97.66 |
 
 **Group:** smoker = No  
 **N:** 702  
 
 |        &nbsp; |    age |    BMI | cigs.per.day |
 |--------------:|-------:|-------:|-------------:|
-|      **Mean** |  49.38 |  25.77 |         0.00 |
-|   **Std.Dev** |  18.06 |   4.59 |         0.00 |
+|      **Mean** |  50.75 |  25.88 |         0.00 |
+|   **Std.Dev** |  17.78 |   4.57 |         0.00 |
 |       **Min** |  18.00 |   8.83 |         0.00 |
-|    **Median** |  49.00 |  25.60 |         0.00 |
+|    **Median** |  52.00 |  25.67 |         0.00 |
 |       **Max** |  80.00 |  39.44 |         0.00 |
-|   **N.Valid** | 685.93 | 685.05 |       674.97 |
-| **Pct.Valid** |  68.59 |  68.50 |        67.50 |
+|   **N.Valid** | 684.86 | 682.35 |       673.38 |
+|         **N** | 701.73 | 701.73 |       701.73 |
+| **Pct.Valid** |  97.60 |  97.24 |        95.96 |
 
-> view(d10)
-Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
-Output file written
-Output file appended
+> d10_gb |> tb()
+# A tibble: 6 × 10
+  smoker variable      mean    sd   min   med   max n.valid     n pct.valid
+  <fct>  <chr>        <dbl> <dbl> <dbl> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+1 Yes    age           51.0 18.4  19     53    80      291.  298.      97.4
+2 Yes    BMI           25.7  4.26  9.01  25.7  36.4    292.  298.      97.7
+3 Yes    cigs.per.day  22.4 10.7   5     22    40      291.  298.      97.7
+4 No     age           50.8 17.8  18     52    80      685.  702.      97.6
+5 No     BMI           25.9  4.57  8.83  25.7  39.4    682.  702.      97.2
+6 No     cigs.per.day   0    0     0      0     0      673.  702.      96.0
 
 # -----------------  tb()
 > descr(tobacco) %>% tb()
-# A tibble: 4 x 8
-  variable      mean      sd    min   med   max n.valid pct.valid
-  <chr>        <dbl>   <dbl>  <dbl> <dbl> <dbl>   <dbl>     <dbl>
-1 age          49.6  18.3    18     50    80        975      97.5
-2 BMI          25.7   4.49    8.83  25.6  39.4      974      97.4
-3 cigs.per.day  6.78 11.9     0      0    40        965      96.5
-4 samp.wgts     1     0.0839  0.861  1.04  1.06    1000     100  
+# A tibble: 4 × 9
+  variable      mean      sd    min   med   max n.valid     n pct.valid
+  <chr>        <dbl>   <dbl>  <dbl> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+1 age          49.6  18.3    18     50    80        975  1000      97.5
+2 BMI          25.7   4.49    8.83  25.6  39.4      974  1000      97.4
+3 cigs.per.day  6.78 11.9     0      0    40        965  1000      96.5
+4 samp.wgts     1     0.0839  0.861  1.04  1.06    1000  1000     100  
 
 > descr(tobacco, stats = "common", transpose = TRUE) %>% tb()
-# A tibble: 4 x 8
-  variable      mean      sd    min   med   max n.valid pct.valid
-  <chr>        <dbl>   <dbl>  <dbl> <dbl> <dbl>   <dbl>     <dbl>
-1 age          49.6  18.3    18     50    80        975      97.5
-2 BMI          25.7   4.49    8.83  25.6  39.4      974      97.4
-3 cigs.per.day  6.78 11.9     0      0    40        965      96.5
-4 samp.wgts     1     0.0839  0.861  1.04  1.06    1000     100  
+# A tibble: 4 × 9
+  variable      mean      sd    min   med   max n.valid     n pct.valid
+  <chr>        <dbl>   <dbl>  <dbl> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+1 age          49.6  18.3    18     50    80        975  1000      97.5
+2 BMI          25.7   4.49    8.83  25.6  39.4      974  1000      97.4
+3 cigs.per.day  6.78 11.9     0      0    40        965  1000      96.5
+4 samp.wgts     1     0.0839  0.861  1.04  1.06    1000  1000     100  
 
 > tobacco %>% select(age) %>% arrange() %>% descr(stats = "common")
 ### Descriptive Statistics  
@@ -530,14 +605,15 @@ Output file appended
 **N:** 1000  
 
 |        &nbsp; |    age |
-|--------------:|-------:|
+|--------------:|--------:|
 |      **Mean** |  49.60 |
 |   **Std.Dev** |  18.29 |
 |       **Min** |  18.00 |
 |    **Median** |  50.00 |
 |       **Max** |  80.00 |
 |   **N.Valid** | 975.00 |
-| **Pct.Valid** |  97.50 |
+|         **N** | 1000.00 |
+| **Pct.Valid** |   97.50 |
 
 # -----------------  Column order
 > descr(exams, order = "sort")
@@ -554,6 +630,7 @@ Non-numerical variable(s) ignored: student, gender
 |    **Median** |     71.60 |   74.10 |  73.60 |     68.50 |   72.75 | 73.75 |
 |       **Max** |     94.20 |   93.10 |  94.70 |     96.30 |   93.50 | 93.20 |
 |   **N.Valid** |     29.00 |   29.00 |  29.00 |     29.00 |   30.00 | 28.00 |
+|         **N** |     30.00 |   30.00 |  30.00 |     30.00 |   30.00 | 30.00 |
 | **Pct.Valid** |     96.67 |   96.67 |  96.67 |     96.67 |  100.00 | 93.33 |
 
 > descr(exams, order = c("french", "english", "geography", "history", "math", "economics"))
@@ -570,6 +647,7 @@ Non-numerical variable(s) ignored: student, gender
 |    **Median** |  73.60 |   74.10 |     68.50 |   72.75 | 73.75 |     71.60 |
 |       **Max** |  94.70 |   93.10 |     96.30 |   93.50 | 93.20 |     94.20 |
 |   **N.Valid** |  29.00 |   29.00 |     29.00 |   30.00 | 28.00 |     29.00 |
+|         **N** |  30.00 |   30.00 |     30.00 |   30.00 | 30.00 |     30.00 |
 | **Pct.Valid** |  96.67 |   96.67 |     96.67 |  100.00 | 93.33 |     96.67 |
 
 > (d11 <- descr(exams, order = "preserve"))
@@ -586,6 +664,7 @@ Non-numerical variable(s) ignored: student, gender
 |    **Median** |  73.60 | 73.75 |     68.50 |   72.75 |     71.60 |   74.10 |
 |       **Max** |  94.70 | 93.20 |     96.30 |   93.50 |     94.20 |   93.10 |
 |   **N.Valid** |  29.00 | 28.00 |     29.00 |   30.00 |     29.00 |   29.00 |
+|         **N** |  30.00 | 30.00 |     30.00 |   30.00 |     30.00 |   30.00 |
 | **Pct.Valid** |  96.67 | 93.33 |     96.67 |  100.00 |     96.67 |   96.67 |
 
 > view(d11, file = "11.html")
@@ -608,6 +687,7 @@ Output file written
 |    **Median** |       0.00 |
 |       **Max** |  39,970.00 |
 |   **N.Valid** | 482,500.00 |
+|         **N** | 500,000.00 |
 | **Pct.Valid** |      96.50 |
 
 > view(dbig1, file = "dbig1.html")
@@ -626,6 +706,7 @@ Output file written
 |    **Median** |       0,00 |
 |       **Max** |  39 970,00 |
 |   **N.Valid** | 482 500,00 |
+|         **N** | 500 000,00 |
 | **Pct.Valid** |      96,50 |
 
 > view(dbig2, file = "dbig2.html")
@@ -644,6 +725,7 @@ Output file written
 |    **Median** |       0.00 |
 |       **Max** |  39'970.00 |
 |   **N.Valid** | 482'500.00 |
+|         **N** | 500'000.00 |
 | **Pct.Valid** |      96.50 |
 
 > view(dbig3, file = "dbig3.html")
@@ -662,10 +744,14 @@ Output file written
 |    **Median** |       0,00 |
 |       **Max** |  39.970,00 |
 |   **N.Valid** | 482.500,00 |
+|         **N** | 500.000,00 |
 | **Pct.Valid** |      96,50 |
 
 > view(dbig4, file = "dbig4.html")
 Output file written
+
+> cleartmp(verbose = TRUE)
+No temporary files to delete.
 
 > st_options("reset")
 summarytools options have been reset
@@ -675,3 +761,5 @@ summarytools options have been reset
 > detach("package:dplyr")
 
 > detach("package:magrittr")
+[1] "Time elapsed for this script:  10.4122 secs"
+[1] "Time elapsed (total):  1.099608 mins"

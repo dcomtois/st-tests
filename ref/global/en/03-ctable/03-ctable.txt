@@ -48,7 +48,6 @@ Label: A Study on Tobacco Use and Health
 > st_options(display.labels = F)
 
 > print(ct1, file = "01.html")
-Switching method to 'browser'
 Output file written
 
 > print(ct1, totals=FALSE, file = "02.md", style = "grid", plain.ascii = FALSE)
@@ -193,6 +192,7 @@ Data Frame: tobacco
 
 # -----------------  stby() 
 > stby(list(x = tobacco$smoker, y = tobacco$diseased), tobacco$gender, ctable)
+NA detected in grouping variable(s); consider using useNA = TRUE
 Cross-Tabulation, Row Proportions  
 smoker * diseased  
 Data Frame: tobacco  
@@ -218,6 +218,7 @@ Group: gender = M
 
 # -----------------  with() + stby()
 > with(tobacco, stby(list(x = smoker, y = diseased), gender, ctable)) # problématique!
+NA detected in grouping variable(s); consider using useNA = TRUE
 Cross-Tabulation, Row Proportions  
 smoker * diseased  
 Data Frame: tobacco  
@@ -242,6 +243,7 @@ Group: gender = M
 -------- ---------- ------------- ------------- --------------
 
 > wbc <- with(tobacco, stby(list(x = smoker, y = diseased), gender, ctable, headings = F))
+NA detected in grouping variable(s); consider using useNA = TRUE
 
 > print(wbc, headings = T)
 Cross-Tabulation, Row Proportions  
@@ -268,9 +270,9 @@ Group: gender = M
 -------- ---------- ------------- ------------- --------------
 
 > print(wbc, headings = T, file = "04.md")
-Setting 'plain.ascii' to FALSE and Changing style to 'grid' for improved markdown compatibility
+Setting 'plain.ascii' to FALSE and changing style to 'grid' for improved markdown compatibility
 Output file written
-Setting 'plain.ascii' to FALSE and Changing style to 'grid' for improved markdown compatibility
+Setting 'plain.ascii' to FALSE and changing style to 'grid' for improved markdown compatibility
 Output file appended
 
 > print(wbc, headings = T, file = "04.html")
@@ -280,9 +282,9 @@ Output file appended
 
 > view(wbc, headings = T, caption = "with head", file = "05.md")
 Switching method to 'pander'
-Setting 'plain.ascii' to FALSE and Changing style to 'grid' for improved markdown compatibility
+Setting 'plain.ascii' to FALSE and changing style to 'grid' for improved markdown compatibility
 Output file written
-Setting 'plain.ascii' to FALSE and Changing style to 'grid' for improved markdown compatibility
+Setting 'plain.ascii' to FALSE and changing style to 'grid' for improved markdown compatibility
 Output file appended
 
 > view(wbc, headings = T, footnote = "with head", file = "05.html")
@@ -332,6 +334,7 @@ Data Frame: tobacco
 -------- -------- ----------------- ----------------- -------------------
 
 > (wc2 <- tobacco %$% stby(list(x = smoker, y = diseased), gender, ctable))
+NA detected in grouping variable(s); consider using useNA = TRUE
 Cross-Tabulation, Row Proportions  
 smoker * diseased  
 Data Frame: tobacco  
@@ -356,6 +359,7 @@ Group: gender = M
 -------- ---------- ------------- ------------- --------------
 
 > tobacco %$% stby(list(smoker, diseased), gender, ctable)
+NA detected in grouping variable(s); consider using useNA = TRUE
 Cross-Tabulation, Row Proportions  
 smoker * diseased  
 Data Frame: tobacco  
@@ -380,6 +384,7 @@ Group: gender = M
 -------- ---------- ------------- ------------- --------------
 
 > with(tobacco, stby(list(smoker, diseased), gender, ctable))
+NA detected in grouping variable(s); consider using useNA = TRUE
 Cross-Tabulation, Row Proportions  
 smoker * diseased  
 Data Frame: tobacco  
@@ -404,6 +409,7 @@ Group: gender = M
 -------- ---------- ------------- ------------- --------------
 
 > stby(list(tobacco$smoker, tobacco$diseased), tobacco$gender, ctable)
+NA detected in grouping variable(s); consider using useNA = TRUE
 Cross-Tabulation, Row Proportions  
 smoker * diseased  
 Data Frame: tobacco  
@@ -500,3 +506,5 @@ summarytools options have been reset
 > detach("package:dplyr")
 
 > detach("package:magrittr")
+[1] "Time elapsed for this script:  10.36771 secs"
+[1] "Time elapsed (total):  55.54564 secs"

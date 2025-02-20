@@ -126,7 +126,7 @@ Type: Character
                      Total   1000    100.00         100.00    100.00         100.00
 
 > print(f2, justify = "left", file = "02-justify-left.md")
-Setting 'plain.ascii' to FALSE and Changing style to 'rmarkdown' for improved markdown compatibility
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
 Output file written
 
 > view(f2, justify = "right", footnote = 'justify right', file = '03-justify-right.html')
@@ -136,3 +136,5 @@ Output file written
 summarytools options have been reset
 
 > detach("package:summarytools")
+[1] "Time elapsed for this script:  0.492702 secs"
+[1] "Time elapsed (total):  3.100694 mins"

@@ -259,3 +259,5 @@ Output file appended
 summarytools options have been reset
 
 > detach("package:summarytools")
+[1] "Time elapsed for this script:  14.14954 secs"
+[1] "Time elapsed (total):  1.578054 mins"

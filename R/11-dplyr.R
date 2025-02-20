@@ -10,26 +10,26 @@ data(tobacco)
 # fr1 %>% view()
 fr1 %>% print(file = "01-freqs-df.html")
 
-(fr2 <- tobacco %>% group_by(age.gr = fct_explicit_na(age.gr)) %>% freq(smoker, report.nas = FALSE))
+(fr2 <- tobacco %>% group_by(age.gr = fct_na_value_to_level(age.gr, "(Missing)")) %>% freq(smoker, report.nas = FALSE))
 fr2 %>% tb()
 fr2 %>% print(file = "02-freqs-group_by-1.html")
 
-(fr3 <- tobacco %>% group_by(age.gr = fct_explicit_na(age.gr), gender = fct_explicit_na(gender)) %>% freq(smoker))
+(fr3 <- tobacco %>% group_by(age.gr = fct_na_value_to_level(age.gr, "(Missing)"), gender = fct_na_value_to_level(gender, "(Missing)")) %>% freq(smoker, report.nas = F))
 fr3 %>% tb()
-fr3 %>% tb(order = 2, na.rm = TRUE)
+fr3 %>% tb(order = 2)
 fr3 %>% print(file = "03-freqs-group_by-2.html")
 
-tobacco$age.gr %<>% fct_explicit_na()
+tobacco$age.gr %<>% fct_na_value_to_level("(Missing)")
 (fr4 <- tobacco %>% group_by(age.gr) %>% select(age.gr, smoker) %>% freq())
 fr4 %>% tb()
 fr4 %>% print(file = "04-freqs-group_by-3.html")
 
-(fr5 <- tobacco %>% freq(fct_explicit_na(smoker)))
+(fr5 <- tobacco %>% freq(fct_na_value_to_level(smoker, "(Missing)")))
 fr5 %>% tb()
 fr5 %>% tb(2, TRUE)
 fr5 %>% print(file = "05-freqs-fn-1.html")
 
-(fr6 <- tobacco %>% group_by(age.gr = fct_explicit_na(age.gr)) %>% freq(na.omit(smoker)))
+(fr6 <- tobacco %>% group_by(age.gr = fct_na_value_to_level(age.gr, "(Missing)")) %>% freq(na.omit(smoker)))
 fr6 %>% tb()
 fr6 %>% tb(2, TRUE)
 fr6 %>% print(file = "06-freqs-fn-2.html")
@@ -43,8 +43,8 @@ d1 %>% print(headings = FALSE, footnote = "test footnote", file = "07-descr1-foo
 (d2 <- tobacco %>% select(age, BMI, smoker) %>% descr(stats = "fivenum"))
 d2 %>% tb()
 d2 %>% print(file = "08-descr-select.html")
-
-(d3 <- tobacco %>% filter(smoker == "Yes") %>% descr(stats = "common"))
+tob <- tobacco[,ncol(tobacco):1]
+(d3 <- tob %>% filter(smoker == "Yes") %>% descr(stats = "common", order = "preserve"))
 d3 %>% tb()
 d3 %>% print(file = "09-descr-filter.html")
 
@@ -52,16 +52,22 @@ d3 %>% print(file = "09-descr-filter.html")
 d4 %>% tb()
 d4 %>% print(file = "10-descr-dollarpipe.html")
 
-(d5 <- tobacco %>% group_by(smoker) %>% descr(stats = "common"))
+(d5 <- tobacco %>% group_by(smoker) %>% 
+    descr(stats = c("mean", "sd","n.valid","mean","n"),
+          transpose = TRUE))
 #d5 %>% view(method = "browser")
 d5 %>% tb()
 d5 %>% tb(2)
 d5 %>% print(file = "11-descr-group_by-1.html")
+(d5tw <- tobacco %>% group_by(smoker) %>% 
+    descr(stats = c("mean", "sd","n.valid","mean","n"),
+          transpose = TRUE))
 
-(d6 <- tobacco %>% group_by(smoker, gender = fct_explicit_na(gender)) %>% descr(stats = "common"))
+(d6 <- tobacco %>% group_by(smoker, gender = fct_na_value_to_level(gender, "Missing")) %>% descr(stats = "common", order = c("cigs.per.day", "BMI", "age", "samp.wgts")))
 #d5 %>% view(method = "browser")
 d6 %>% tb()
 d6 %>% tb(2)
+d6 %>% tb(3)
 d6 %>% print(file = "12-descr-group_by-2.html")
 
 (d7 <- tobacco %>% group_by(smoker) %>% descr(age, stats = "common"))
@@ -85,12 +91,12 @@ dfs2 %>% print(file = "15-dfSummary-select.html")
 dfs2 %>% view()
 
 
-tobacco$gender %<>% fct_explicit_na()
+tobacco$gender %<>% fct_na_value_to_level("(Missing)")
 (dfs3 <- tobacco %>% group_by(gender) %>% dfSummary(valid.col = F))
 dfs3 %>% view(file = "16-dfSummary-group_by.html", keep.grp.vars = T)
 dfs3 %>% view(file = "17-dfSummary-group_by-discard_grp_vars1.html")
 
-tobacco$age.gr %<>% fct_explicit_na()
+tobacco$age.gr %<>% fct_na_value_to_level("(Missing)")
 (dfs4 <- tobacco %>% group_by(gender, age.gr) %>% dfSummary(valid.col = F, keep.grp.vars = T))
 dfs4 %>% view(file = "18-dfSummary-group_by-discard_grp_vars2.html")
 

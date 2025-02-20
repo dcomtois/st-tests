@@ -2,7 +2,6 @@
 suppressPackageStartupMessages(library(summarytools))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(magrittr))
-
 options(tibble.print_max = Inf)
 
 tobacco <- tibble::as_tibble(tobacco)
@@ -82,6 +81,12 @@ view(d9, file = "09.html")
 # by with weights
 (d10 <- stby(tobacco, tobacco$smoker, descr, weights = tobacco$samp.wgts))
 view(d10)
+d10 |> tb()
+
+# group_by with weights
+library(dplyr)
+(d10_gb <- tobacco %>% dplyr::group_by(smoker) %>% descr(weights = samp.wgts))
+d10_gb |> tb()
 
 # tb()
 descr(tobacco) %>% tb()
@@ -107,7 +112,7 @@ view(dbig3, file = "dbig3.html")
 (dbig4 <- descr(bignum, big.mark = ".", decimal.mark = ","))
 view(dbig4, file = "dbig4.html")
 
-
+cleartmp(verbose = TRUE)
 st_options("reset")
 detach("package:summarytools")
 detach("package:dplyr")

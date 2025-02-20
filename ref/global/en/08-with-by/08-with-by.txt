@@ -30,9 +30,9 @@ Table: Table continues below
 
  
 
-            SE.Skewness   Kurtosis   N.Valid   Pct.Valid
---------- ------------- ---------- --------- -----------
-      BMI          0.08       0.26    974.00       97.40
+            SE.Skewness   Kurtosis   N.Valid         N   Pct.Valid
+--------- ------------- ---------- --------- --------- -----------
+      BMI          0.08       0.26    974.00   1000.00       97.40
 
 > view(w2, footnote = "with, transpose", file = "02-with-transposed.html")
 Output file written
@@ -159,7 +159,8 @@ Output file appended
 
 > view(stby(data = tobacco$BMI, INDICES = tobacco$gender, FUN = descr), file = "06-with-and-by-descr.md")
 Switching method to 'pander'
-Setting 'plain.ascii' to FALSE and Changing style to 'rmarkdown' for improved markdown compatibility
+NA detected in grouping variable(s); consider using useNA = TRUE
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
 Output file written
 
 > bf2 <- stby(iris$Species, iris$Sepal.Length > mean(iris$Sepal.Length), freq)
@@ -193,6 +194,7 @@ Output file written
 Output file appended
 
 > bd1 <- stby(data = tobacco$BMI, INDICES = tobacco$gender, FUN = descr, style = "grid")
+NA detected in grouping variable(s); consider using useNA = TRUE
 
 > view(bd1, headings = FALSE, method = "browser", footnote = "by, no headings", file = "08-by-descr-no-head.html")
 Output file written
@@ -202,67 +204,88 @@ Descriptive Statistics
 BMI by gender  
 Data Frame: tobacco  
 Label: Body Mass Index  
-N: 489  
+N: 978  
 
-                         F        M
------------------ -------- --------
-             Mean    26.10    25.31
-          Std.Dev     4.95     3.98
-              Min     9.01     8.83
-               Q1    22.98    22.52
-           Median    25.87    25.14
-               Q3    29.48    27.96
-              Max    39.44    36.76
-              MAD     4.75     4.02
-              IQR     6.49     5.44
-               CV     0.19     0.16
-         Skewness    -0.02    -0.04
-      SE.Skewness     0.11     0.11
-         Kurtosis     0.09     0.17
-          N.Valid   475.00   477.00
-        Pct.Valid    97.14    97.55
++-----------------+--------+--------+
+|                 |      F |      M |
++=================+========+========+
+|            Mean |  26.10 |  25.31 |
++-----------------+--------+--------+
+|         Std.Dev |   4.95 |   3.98 |
++-----------------+--------+--------+
+|             Min |   9.01 |   8.83 |
++-----------------+--------+--------+
+|              Q1 |  22.98 |  22.52 |
++-----------------+--------+--------+
+|          Median |  25.87 |  25.14 |
++-----------------+--------+--------+
+|              Q3 |  29.48 |  27.96 |
++-----------------+--------+--------+
+|             Max |  39.44 |  36.76 |
++-----------------+--------+--------+
+|             MAD |   4.75 |   4.02 |
++-----------------+--------+--------+
+|             IQR |   6.49 |   5.44 |
++-----------------+--------+--------+
+|              CV |   0.19 |   0.16 |
++-----------------+--------+--------+
+|        Skewness |  -0.02 |  -0.04 |
++-----------------+--------+--------+
+|     SE.Skewness |   0.11 |   0.11 |
++-----------------+--------+--------+
+|        Kurtosis |   0.09 |   0.17 |
++-----------------+--------+--------+
+|         N.Valid | 475.00 | 477.00 |
++-----------------+--------+--------+
+|               N | 489.00 | 489.00 |
++-----------------+--------+--------+
+|       Pct.Valid |  97.14 |  97.55 |
++-----------------+--------+--------+
 
 > bd2 <- stby(data = tobacco, INDICES = tobacco$gender, FUN = descr)
+NA detected in grouping variable(s); consider using useNA = TRUE
 
 > view(bd2, method = "browser", file = "09-by-descr.html")
-Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
+Non-numerical variable(s) ignored: age.gr, smoker, diseased, disease
 Output file written
 Output file appended
 
 > view(bd2, method = "pander", file = "09-by-descr-view.md")
-Setting 'plain.ascii' to FALSE and Changing style to 'rmarkdown' for improved markdown compatibility
-Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
+Non-numerical variable(s) ignored: age.gr, smoker, diseased, disease
 Output file written
-Setting 'plain.ascii' to FALSE and Changing style to 'rmarkdown' for improved markdown compatibility
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
 Output file appended
 
 > label(tobacco) <- "Blabla"
 
 > bd3 <- stby(data = tobacco, INDICES = tobacco$gender, FUN = descr)
+NA detected in grouping variable(s); consider using useNA = TRUE
 
 > st_options(display.labels = FALSE)
 
 > view(bd3, display.labels = T, method = "browser", footnote = "override option disp.labels = F", file = "10-by-descr.html")
-Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
+Non-numerical variable(s) ignored: age.gr, smoker, diseased, disease
 Output file written
 Output file appended
 
 > print(bd3, file = "10-by-descr.md")
-Setting 'plain.ascii' to FALSE and Changing style to 'rmarkdown' for improved markdown compatibility
-Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
+Non-numerical variable(s) ignored: age.gr, smoker, diseased, disease
 Output file written
-Setting 'plain.ascii' to FALSE and Changing style to 'rmarkdown' for improved markdown compatibility
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
 Output file appended
 
 > attach(tobacco)
 
 > bd4 <- stby(data = BMI, INDICES = gender, FUN = descr)
+NA detected in grouping variable(s); consider using useNA = TRUE
 
 > view(bd4, method = "browser", footnote = "stand-alone variable", file = "11-by-descr-standalone-var.html")
 Output file written
 
 > print(bd4, file = "11-by-descr-standalone-var.md")
-Setting 'plain.ascii' to FALSE and Changing style to 'rmarkdown' for improved markdown compatibility
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
 Output file written
 
 > detach(tobacco)
@@ -291,6 +314,7 @@ N: 150
       SE.Skewness           0.20          0.20           0.20          0.20
          Kurtosis          -1.42         -1.36          -0.61          0.14
           N.Valid         150.00        150.00         150.00        150.00
+                N         150.00        150.00         150.00        150.00
         Pct.Valid         100.00        100.00         100.00        100.00
 
 > view(with(tobacco, descr(BMI, transpose = TRUE)), method = "browser", footnote = "with, transpose", file = "12.html")
@@ -299,12 +323,14 @@ Output file written
 > attach(tobacco)
 
 > view(stby(data = BMI, INDICES = gender, FUN = descr), method = "browser", file = "13.html") 
+NA detected in grouping variable(s); consider using useNA = TRUE
 Output file written
 
 > view(stby(data = BMI, INDICES = gender, FUN = descr), method = "pander", style = "rmarkdown") 
+NA detected in grouping variable(s); consider using useNA = TRUE
 ### Descriptive Statistics  
 #### BMI by gender  
-**N:** 489  
+**N:** 978  
 
 |          &nbsp; |      F |      M |
 |----------------:|-------:|-------:|
@@ -322,13 +348,15 @@ Output file written
 | **SE.Skewness** |   0.11 |   0.11 |
 |    **Kurtosis** |   0.09 |   0.17 |
 |     **N.Valid** | 475.00 | 477.00 |
+|           **N** | 489.00 | 489.00 |
 |   **Pct.Valid** |  97.14 |  97.55 |
 
 > view(stby(data = BMI, INDICES = gender, FUN = descr), method = "render") 
+NA detected in grouping variable(s); consider using useNA = TRUE
 <div class="container st-container">
   <h3>Descriptive Statistics</h3>
   <h4> BMI by gender </h4>
-  <strong>N</strong>: 489
+  <strong>N</strong>: 978
   <br/>
   <table class="table table-bordered table-striped st-table st-table-bordered st-table-striped st-descr-table ">
   <thead>
@@ -425,138 +453,140 @@ Output file written
     </tr>
     <tr>
       <td>
+        <strong>N</strong></td>
+      <td><span>489</span></td>
+      <td><span>489</span></td>
+    </tr>
+    <tr>
+      <td>
         <strong>Pct.Valid</strong></td>
       <td><span>97.14</span></td>
       <td><span>97.55</span></td>
     </tr>
   </tbody>
 </table>
-  <p>Generated by <a href='https://github.com/dcomtois/summarytools'>summarytools</a> 0.9.7 (<a href='https://www.r-project.org/'>R</a> version 4.0.3)<br/>2020-11-25</p>
+  <p>Generated by <a href='https://github.com/dcomtois/summarytools'>summarytools</a> 1.1.0 (<a href='https://www.r-project.org/'>R</a> version 4.4.2)<br/>2025-02-12</p>
 </div>
 
 > detach(tobacco)
 
 > stby(tobacco, tobacco$gender, dfSummary)
+NA detected in grouping variable(s); consider using useNA = TRUE
 Data Frame Summary  
 tobacco  
 Group: gender = F  
 Dimensions: 489 x 9  
 Duplicates: 0  
 
----------------------------------------------------------------------------------------------------------------
-No   Variable       Stats / Values            Freqs (% of Valid)    Graph                  Valid      Missing  
----- -------------- ------------------------- --------------------- ---------------------- ---------- ---------
-1    gender         1. F                      489 (100.0%)          IIIIIIIIIIIIIIIIIIII   489        0        
-     [factor]       2. M                        0 (  0.0%)                                 (100.0%)   (0.0%)   
+--------------------------------------------------------------------------------------------------------------
+No   Variable       Stats / Values            Freqs (% of Valid)    Graph                 Valid      Missing  
+---- -------------- ------------------------- --------------------- --------------------- ---------- ---------
+2    age            Mean (sd) : 49.6 (18.3)   63 distinct values    :     . . .   : . :   475        14       
+     [numeric]      min < med < max:                                : : : : : : : : : :   (97.1%)    (2.9%)   
+                    18 < 50 < 80                                    : : : : : : : : : :                       
+                    IQR (CV) : 32 (0.4)                             : : : : : : : : : :                       
+                                                                    : : : : : : : : : :                       
 
-2    age            Mean (sd) : 49.6 (18.3)   63 distinct values    :     . . .   : . :    475        14       
-     [numeric]      min < med < max:                                : : : : : : : : : :    (97.1%)    (2.9%)   
-                    18 < 50 < 80                                    : : : : : : : : : :                        
-                    IQR (CV) : 32 (0.4)                             : : : : : : : : : :                        
-                                                                    : : : : : : : : : :                        
+3    age.gr         1. 18-34                  123 (25.9%)           IIIII                 475        14       
+     [factor]       2. 35-50                  118 (24.8%)           IIII                  (97.1%)    (2.9%)   
+                    3. 51-70                  157 (33.1%)           IIIIII                                    
+                    4. 71 +                    77 (16.2%)           III                                       
 
-3    age.gr         1. 18-34                  123 (25.9%)           IIIII                  475        14       
-     [factor]       2. 35-50                  118 (24.8%)           IIII                   (97.1%)    (2.9%)   
-                    3. 51-70                  157 (33.1%)           IIIIII                                     
-                    4. 71 +                    77 (16.2%)           III                                        
+4    BMI            Mean (sd) : 26.1 (4.9)    475 distinct values           :             475        14       
+     [numeric]      min < med < max:                                      : :             (97.1%)    (2.9%)   
+                    9 < 25.9 < 39.4                                       : : .                               
+                    IQR (CV) : 6.5 (0.2)                                . : : :                               
+                                                                        : : : : .                             
 
-4    BMI            Mean (sd) : 26.1 (4.9)    475 distinct values           :              475        14       
-     [numeric]      min < med < max:                                      : :              (97.1%)    (2.9%)   
-                    9 < 25.9 < 39.4                                       : : .                                
-                    IQR (CV) : 6.5 (0.2)                                . : : :                                
-                                                                        : : : : .                              
+5    smoker         1. Yes                    147 (30.1%)           IIIIII                489        0        
+     [factor]       2. No                     342 (69.9%)           IIIIIIIIIIIII         (100.0%)   (0.0%)   
 
-5    smoker         1. Yes                    147 (30.1%)           IIIIII                 489        0        
-     [factor]       2. No                     342 (69.9%)           IIIIIIIIIIIII          (100.0%)   (0.0%)   
+6    cigs.per.day   Mean (sd) : 6.9 (12)      37 distinct values    :                     468        21       
+     [numeric]      min < med < max:                                :                     (95.7%)    (4.3%)   
+                    0 < 0 < 40                                      :                                         
+                    IQR (CV) : 10.2 (1.8)                           :                                         
+                                                                    : . . .   . . .                           
 
-6    cigs.per.day   Mean (sd) : 6.9 (12)      37 distinct values    :                      468        21       
-     [numeric]      min < med < max:                                :                      (95.7%)    (4.3%)   
-                    0 < 0 < 40                                      :                                          
-                    IQR (CV) : 10.2 (1.8)                           :                                          
-                                                                    : . . .   . . .                            
+7    diseased       1. Yes                    111 (22.7%)           IIII                  489        0        
+     [factor]       2. No                     378 (77.3%)           IIIIIIIIIIIIIII       (100.0%)   (0.0%)   
 
-7    diseased       1. Yes                    111 (22.7%)           IIII                   489        0        
-     [factor]       2. No                     378 (77.3%)           IIIIIIIIIIIIIII        (100.0%)   (0.0%)   
+8    disease        1. Hypertension           18 (16.5%)            III                   109        380      
+     [character]    2. Cancer                 16 (14.7%)            II                    (22.3%)    (77.7%)  
+                    3. Cholesterol            10 ( 9.2%)            I                                         
+                    4. Heart                   9 ( 8.3%)            I                                         
+                    5. Pulmonary               9 ( 8.3%)            I                                         
+                    6. Diabetes                8 ( 7.3%)            I                                         
+                    7. Musculoskeletal         8 ( 7.3%)            I                                         
+                    8. Hypotension             7 ( 6.4%)            I                                         
+                    9. Neurological            7 ( 6.4%)            I                                         
+                    10. Vision                 6 ( 5.5%)            I                                         
+                    [ 3 others ]              11 (10.1%)            II                                        
 
-8    disease        1. Hypertension           18 (16.5%)            III                    109        380      
-     [character]    2. Cancer                 16 (14.7%)            II                     (22.3%)    (77.7%)  
-                    3. Cholesterol            10 ( 9.2%)            I                                          
-                    4. Heart                   9 ( 8.3%)            I                                          
-                    5. Pulmonary               9 ( 8.3%)            I                                          
-                    6. Diabetes                8 ( 7.3%)            I                                          
-                    7. Musculoskeletal         8 ( 7.3%)            I                                          
-                    8. Hypotension             7 ( 6.4%)            I                                          
-                    9. Neurological            7 ( 6.4%)            I                                          
-                    10. Vision                 6 ( 5.5%)            I                                          
-                    [ 3 others ]              11 (10.1%)            II                                         
-
-9    samp.wgts      Mean (sd) : 1 (0.1)       0.86!: 131 (26.8%)    IIIII                  489        0        
-     [numeric]      min < med < max:          1.04!: 120 (24.5%)    IIII                   (100.0%)   (0.0%)   
-                    0.9 < 1 < 1.1             1.05!: 160 (32.7%)    IIIIII                                     
-                    IQR (CV) : 0.2 (0.1)      1.06!:  78 (16.0%)    III                                        
-                                              ! rounded                                                        
----------------------------------------------------------------------------------------------------------------
+9    samp.wgts      Mean (sd) : 1 (0.1)       0.86!: 131 (26.8%)    IIIII                 489        0        
+     [numeric]      min < med < max:          1.04!: 120 (24.5%)    IIII                  (100.0%)   (0.0%)   
+                    0.9 < 1 < 1.1             1.05!: 160 (32.7%)    IIIIII                                    
+                    IQR (CV) : 0.2 (0.1)      1.06!:  78 (16.0%)    III                                       
+                                              ! rounded                                                       
+--------------------------------------------------------------------------------------------------------------
 
 Group: gender = M  
 Dimensions: 489 x 9  
 Duplicates: 2  
 
----------------------------------------------------------------------------------------------------------------
-No   Variable       Stats / Values            Freqs (% of Valid)    Graph                  Valid      Missing  
----- -------------- ------------------------- --------------------- ---------------------- ---------- ---------
-1    gender         1. F                        0 (  0.0%)                                 489        0        
-     [factor]       2. M                      489 (100.0%)          IIIIIIIIIIIIIIIIIIII   (100.0%)   (0.0%)   
+--------------------------------------------------------------------------------------------------------------
+No   Variable       Stats / Values            Freqs (% of Valid)    Graph                 Valid      Missing  
+---- -------------- ------------------------- --------------------- --------------------- ---------- ---------
+2    age            Mean (sd) : 49.6 (18.3)   63 distinct values          .     .   . :   478        11       
+     [numeric]      min < med < max:                                : : : : :   : : : :   (97.8%)    (2.2%)   
+                    18 < 49.5 < 80                                  : : : : : : : : : :                       
+                    IQR (CV) : 32 (0.4)                             : : : : : : : : : :                       
+                                                                    : : : : : : : : : :                       
 
-2    age            Mean (sd) : 49.6 (18.3)   63 distinct values          .     .   . :    478        11       
-     [numeric]      min < med < max:                                : : : : :   : : : :    (97.8%)    (2.2%)   
-                    18 < 49.5 < 80                                  : : : : : : : : : :                        
-                    IQR (CV) : 32 (0.4)                             : : : : : : : : : :                        
-                                                                    : : : : : : : : : :                        
+3    age.gr         1. 18-34                  130 (27.2%)           IIIII                 478        11       
+     [factor]       2. 35-50                  118 (24.7%)           IIII                  (97.8%)    (2.2%)   
+                    3. 51-70                  151 (31.6%)           IIIIII                                    
+                    4. 71 +                    79 (16.5%)           III                                       
 
-3    age.gr         1. 18-34                  130 (27.2%)           IIIII                  478        11       
-     [factor]       2. 35-50                  118 (24.7%)           IIII                   (97.8%)    (2.2%)   
-                    3. 51-70                  151 (31.6%)           IIIIII                                     
-                    4. 71 +                    79 (16.5%)           III                                        
+4    BMI            Mean (sd) : 25.3 (4)      477 distinct values             : .         477        12       
+     [numeric]      min < med < max:                                          : :         (97.5%)    (2.5%)   
+                    8.8 < 25.1 < 36.8                                       : : : .                           
+                    IQR (CV) : 5.4 (0.2)                                    : : : : .                         
+                                                                          : : : : : :                         
 
-4    BMI            Mean (sd) : 25.3 (4)      477 distinct values             : .          477        12       
-     [numeric]      min < med < max:                                          : :          (97.5%)    (2.5%)   
-                    8.8 < 25.1 < 36.8                                       : : : .                            
-                    IQR (CV) : 5.4 (0.2)                                    : : : : .                          
-                                                                          : : : : : :                          
+5    smoker         1. Yes                    143 (29.2%)           IIIII                 489        0        
+     [factor]       2. No                     346 (70.8%)           IIIIIIIIIIIIII        (100.0%)   (0.0%)   
 
-5    smoker         1. Yes                    143 (29.2%)           IIIII                  489        0        
-     [factor]       2. No                     346 (70.8%)           IIIIIIIIIIIIII         (100.0%)   (0.0%)   
+6    cigs.per.day   Mean (sd) : 6.7 (11.8)    36 distinct values    :                     475        14       
+     [numeric]      min < med < max:                                :                     (97.1%)    (2.9%)   
+                    0 < 0 < 40                                      :                                         
+                    IQR (CV) : 11 (1.8)                             :                                         
+                                                                    :   .   . . . .                           
 
-6    cigs.per.day   Mean (sd) : 6.7 (11.8)    36 distinct values    :                      475        14       
-     [numeric]      min < med < max:                                :                      (97.1%)    (2.9%)   
-                    0 < 0 < 40                                      :                                          
-                    IQR (CV) : 11 (1.8)                             :                                          
-                                                                    :   .   . . . .                            
+7    diseased       1. Yes                    110 (22.5%)           IIII                  489        0        
+     [factor]       2. No                     379 (77.5%)           IIIIIIIIIIIIIII       (100.0%)   (0.0%)   
 
-7    diseased       1. Yes                    110 (22.5%)           IIII                   489        0        
-     [factor]       2. No                     379 (77.5%)           IIIIIIIIIIIIIII        (100.0%)   (0.0%)   
+8    disease        1. Cancer                 18 (16.4%)            III                   110        379      
+     [character]    2. Hypertension           17 (15.5%)            III                   (22.5%)    (77.5%)  
+                    3. Cholesterol            11 (10.0%)            II                                        
+                    4. Heart                  11 (10.0%)            II                                        
+                    5. Pulmonary              11 (10.0%)            II                                        
+                    6. Musculoskeletal        10 ( 9.1%)            I                                         
+                    7. Hearing                 9 ( 8.2%)            I                                         
+                    8. Digestive               7 ( 6.4%)            I                                         
+                    9. Diabetes                5 ( 4.5%)                                                      
+                    10. Hypotension            4 ( 3.6%)                                                      
+                    [ 3 others ]               7 ( 6.4%)            I                                         
 
-8    disease        1. Cancer                 18 (16.4%)            III                    110        379      
-     [character]    2. Hypertension           17 (15.5%)            III                    (22.5%)    (77.5%)  
-                    3. Cholesterol            11 (10.0%)            II                                         
-                    4. Heart                  11 (10.0%)            II                                         
-                    5. Pulmonary              11 (10.0%)            II                                         
-                    6. Musculoskeletal        10 ( 9.1%)            I                                          
-                    7. Hearing                 9 ( 8.2%)            I                                          
-                    8. Digestive               7 ( 6.4%)            I                                          
-                    9. Diabetes                5 ( 4.5%)                                                       
-                    10. Hypotension            4 ( 3.6%)                                                       
-                    [ 3 others ]               7 ( 6.4%)            I                                          
-
-9    samp.wgts      Mean (sd) : 1 (0.1)       0.86!: 131 (26.8%)    IIIII                  489        0        
-     [numeric]      min < med < max:          1.04!: 124 (25.4%)    IIIII                  (100.0%)   (0.0%)   
-                    0.9 < 1 < 1.1             1.05!: 155 (31.7%)    IIIIII                                     
-                    IQR (CV) : 0.2 (0.1)      1.06!:  79 (16.2%)    III                                        
-                                              ! rounded                                                        
----------------------------------------------------------------------------------------------------------------
+9    samp.wgts      Mean (sd) : 1 (0.1)       0.86!: 131 (26.8%)    IIIII                 489        0        
+     [numeric]      min < med < max:          1.04!: 124 (25.4%)    IIIII                 (100.0%)   (0.0%)   
+                    0.9 < 1 < 1.1             1.05!: 155 (31.7%)    IIIIII                                    
+                    IQR (CV) : 0.2 (0.1)      1.06!:  79 (16.2%)    III                                       
+                                              ! rounded                                                       
+--------------------------------------------------------------------------------------------------------------
 
 > stby(tobacco, tobacco$gender, descr)
-Non-numerical variable(s) ignored: gender, age.gr, smoker, diseased, disease
+NA detected in grouping variable(s); consider using useNA = TRUE
+Non-numerical variable(s) ignored: age.gr, smoker, diseased, disease
 Descriptive Statistics  
 tobacco  
 Group: gender = F  
@@ -578,6 +608,7 @@ N: 489
       SE.Skewness     0.11     0.11           0.11        0.11
          Kurtosis    -1.25     0.09           0.85       -0.92
           N.Valid   475.00   475.00         468.00      489.00
+                N   489.00   489.00         489.00      489.00
         Pct.Valid    97.14    97.14          95.71      100.00
 
 Group: gender = M  
@@ -599,11 +630,13 @@ N: 489
       SE.Skewness     0.11     0.11           0.11        0.11
          Kurtosis    -1.27     0.17           0.92       -0.92
           N.Valid   478.00   477.00         475.00      489.00
+                N   489.00   489.00         489.00      489.00
         Pct.Valid    97.75    97.55          97.14      100.00
 
 > tobacco$disease <- factor(tobacco$disease)
 
 > stby(tobacco$disease, list(tobacco$smoker, tobacco$gender), freq)
+NA detected in grouping variable(s); consider using useNA = TRUE
 Frequencies  
 tobacco$disease  
 Type: Factor  
@@ -744,12 +777,13 @@ Group: smoker = No
       Total    702    100.00         100.00    100.00         100.00
 
 > wb2 <- with(tobacco, stby(data = BMI, INDICES = gender, FUN = descr)) 
+NA detected in grouping variable(s); consider using useNA = TRUE
 
 > view(wb2, method = "pander")
 Descriptive Statistics  
 BMI by gender  
 Data Frame: tobacco  
-N: 489  
+N: 978  
 
                          F        M
 ----------------- -------- --------
@@ -767,19 +801,22 @@ N: 489
       SE.Skewness     0.11     0.11
          Kurtosis     0.09     0.17
           N.Valid   475.00   477.00
+                N   489.00   489.00
         Pct.Valid    97.14    97.55
 
 > view(wb2, method = "browser", footnote = "with + by", file = "16.html")
 Output file written
 
 > view(with(tobacco, stby(data = BMI, INDICES = gender, FUN = descr, stats = "fivenum")), method = "browser", footnote = "with + by fivenum", file = "17.html")
+NA detected in grouping variable(s); consider using useNA = TRUE
 Output file written
 
 > (b5 <- with(tobacco, stby(BMI, age.gr, descr, stats = c("mean", "sd", "min", "med", "max"))))
+NA detected in grouping variable(s); consider using useNA = TRUE
 Descriptive Statistics  
 BMI by age.gr  
 Data Frame: tobacco  
-N: 258  
+N: 975  
 
                 18-34   35-50   51-70    71 +
 ------------- ------- ------- ------- -------
@@ -793,7 +830,7 @@ N: 258
 ### Descriptive Statistics  
 #### BMI by age.gr  
 **Data Frame:** tobacco  
-**N:** 258  
+**N:** 975  
 
 |      &nbsp; | 18-34 | 35-50 | 51-70 |  71 + |
 |------------:|------:|------:|------:|------:|
@@ -804,12 +841,13 @@ N: 258
 |     **Max** | 34.84 | 39.44 | 39.21 | 38.37 |
 
 > b6 <- with(tobacco, stby(BMI, age.gr, descr, stats = c("mean", "sd", "min", "max"), transpose = TRUE))
+NA detected in grouping variable(s); consider using useNA = TRUE
 
 > view(b6, "pander") 
 Descriptive Statistics  
 BMI by age.gr  
 Data Frame: tobacco  
-N: 258  
+N: 975  
 
                Mean   Std.Dev     Min     Max
 ----------- ------- --------- ------- -------
@@ -826,13 +864,15 @@ Output file written
 Output file appended
 
 > view(with(tobacco, stby(data = BMI, INDICES = gender, FUN = descr)), method = "browser", file = "20.html")
+NA detected in grouping variable(s); consider using useNA = TRUE
 Output file written
 
 > with(tobacco, view(stby(data = BMI, INDICES = gender, FUN = descr), method = "pander"))
+NA detected in grouping variable(s); consider using useNA = TRUE
 Descriptive Statistics  
 BMI by gender  
 Data Frame: tobacco  
-N: 489  
+N: 978  
 
                          F        M
 ----------------- -------- --------
@@ -850,6 +890,7 @@ N: 489
       SE.Skewness     0.11     0.11
          Kurtosis     0.09     0.17
           N.Valid   475.00   477.00
+                N   489.00   489.00
         Pct.Valid    97.14    97.55
 
 # -----------------  Ouverture dans viewer
@@ -859,6 +900,7 @@ Output file written
 
 # -----------------  by + weights
 > with(tobacco, stby(smoker, gender, freq, weights = samp.wgts))
+NA detected in grouping variable(s); consider using useNA = TRUE
 Weighted Frequencies  
 tobacco$smoker  
 Type: Factor  
@@ -882,6 +924,7 @@ Group: gender = M
       Total   488.92    100.00         100.00    100.00         100.00
 
 > with(tobacco, stby(list(x=gender, y=smoker), age.gr, ctable, weights = samp.wgts))
+NA detected in grouping variable(s); consider using useNA = TRUE
 Cross-Tabulation, Row Proportions  
 gender * smoker  
 Data Frame: tobacco  
@@ -967,3 +1010,5 @@ summarytools options have been reset
 > detach("package:summarytools")
 
 > detach("package:dplyr")
+[1] "Time elapsed for this script:  6.469286 secs"
+[1] "Time elapsed (total):  1.666087 mins"

@@ -2,7 +2,7 @@
 #### BMI by gender  
 **Data Frame:** tobacco  
 **Label:** Body Mass Index  
-**N:** 489  
+**N:** 978  
 
 |          &nbsp; |      F |      M |
 |----------------:|-------:|-------:|
@@ -20,4 +20,5 @@
 | **SE.Skewness** |   0.11 |   0.11 |
 |    **Kurtosis** |   0.09 |   0.17 |
 |     **N.Valid** | 475.00 | 477.00 |
+|           **N** | 489.00 | 489.00 |
 |   **Pct.Valid** |  97.14 |  97.55 |

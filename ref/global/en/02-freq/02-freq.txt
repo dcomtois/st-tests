@@ -560,6 +560,19 @@ Type: Factor
       18-34    258    26.46   100.00
       Total    975   100.00   100.00
 
+> freq(tobacco$disease, order = "freq", rows = 1:3, decimal.mark=",", report.nas = FALSE)
+Frequencies  
+tobacco$disease  
+Type: Character  
+
+                     Freq        %   % Cum.
+------------------ ------ -------- --------
+      Hypertension     36    16,22    16,22
+            Cancer     34    15,32    31,53
+       Cholesterol     21     9,46    40,99
+           (Other)    131    59,01   100,00
+             Total    222   100,00   100,00
+
 # -----------------  1) Original order - character
 > freq(tobacco$disease)
 Frequencies  
@@ -1153,15 +1166,13 @@ Type: Factor
 
 # -----------------  Print to files (Style and/or method should be modified with message)
 > print(f1, file = "01.md")
-Setting 'plain.ascii' to FALSE and Changing style to 'rmarkdown' for improved markdown compatibility
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
 Output file written
 
 > print(f1, file = "01.html")
-Switching method to 'browser'
 Output file written
 
 > print(f1, bootstrap.css = FALSE, footnote = "no bootstrap", file = "02-no-bootstrap.html", report.title = "Freq without bootstrap")
-Switching method to 'browser'
 Output file written
 
 # -----------------  Omit cumulative and na reporting
@@ -1259,7 +1270,6 @@ Weights: ponderation
                      Total   1000.00    100.00         100.00    100.00         100.00
 
 > print(wf1, file = "03-weights.html")
-Switching method to 'browser'
 Output file written
 
 > print(wf1, report.nas = FALSE)
@@ -1824,6 +1834,82 @@ tobacco$samp.wgts
 > tobacco_subset <- tobacco[,c(3,5,6)]
 
 > lapply(tobacco_subset, freq, style = "rmarkdown")
+setting plain.ascii to FALSE
+setting plain.ascii to FALSE
+setting plain.ascii to FALSE
+### Frequencies  
+#### tobacco_subset$age.gr  
+**Label:** Age Group  
+**Type:** Factor  
+
+|     &nbsp; | Freq | % Valid | % Valid Cum. | % Total | % Total Cum. |
+|-----------:|-----:|--------:|-------------:|--------:|-------------:|
+|  **18-34** |  258 |   26.46 |        26.46 |   25.80 |        25.80 |
+|  **35-50** |  241 |   24.72 |        51.18 |   24.10 |        49.90 |
+|  **51-70** |  317 |   32.51 |        83.69 |   31.70 |        81.60 |
+|   **71 +** |  159 |   16.31 |       100.00 |   15.90 |        97.50 |
+| **\<NA\>** |   25 |         |              |    2.50 |       100.00 |
+|  **Total** | 1000 |  100.00 |       100.00 |  100.00 |       100.00 |
+
+#### tobacco_subset$smoker  
+**Label:** Subject Smokes  
+**Type:** Factor  
+
+|     &nbsp; | Freq | % Valid | % Valid Cum. | % Total | % Total Cum. |
+|-----------:|-----:|--------:|-------------:|--------:|-------------:|
+|    **Yes** |  298 |   29.80 |        29.80 |   29.80 |        29.80 |
+|     **No** |  702 |   70.20 |       100.00 |   70.20 |       100.00 |
+| **\<NA\>** |    0 |         |              |    0.00 |       100.00 |
+|  **Total** | 1000 |  100.00 |       100.00 |  100.00 |       100.00 |
+
+#### tobacco_subset$cigs.per.day  
+**Type:** Numeric  
+
+|     &nbsp; | Freq | % Valid | % Valid Cum. | % Total | % Total Cum. |
+|-----------:|-----:|--------:|-------------:|--------:|-------------:|
+|      **0** |  674 |   69.84 |        69.84 |   67.40 |        67.40 |
+|      **5** |   11 |    1.14 |        70.98 |    1.10 |        68.50 |
+|      **6** |    9 |    0.93 |        71.92 |    0.90 |        69.40 |
+|      **7** |    7 |    0.73 |        72.64 |    0.70 |        70.10 |
+|      **8** |    6 |    0.62 |        73.26 |    0.60 |        70.70 |
+|      **9** |    5 |    0.52 |        73.78 |    0.50 |        71.20 |
+|     **10** |    6 |    0.62 |        74.40 |    0.60 |        71.80 |
+|     **11** |   19 |    1.97 |        76.37 |    1.90 |        73.70 |
+|     **12** |    5 |    0.52 |        76.89 |    0.50 |        74.20 |
+|     **13** |    8 |    0.83 |        77.72 |    0.80 |        75.00 |
+|     **14** |    9 |    0.93 |        78.65 |    0.90 |        75.90 |
+|     **15** |   11 |    1.14 |        79.79 |    1.10 |        77.00 |
+|     **16** |    7 |    0.73 |        80.52 |    0.70 |        77.70 |
+|     **17** |    6 |    0.62 |        81.14 |    0.60 |        78.30 |
+|     **18** |    9 |    0.93 |        82.07 |    0.90 |        79.20 |
+|     **19** |    6 |    0.62 |        82.69 |    0.60 |        79.80 |
+|     **20** |    7 |    0.73 |        83.42 |    0.70 |        80.50 |
+|     **21** |   12 |    1.24 |        84.66 |    1.20 |        81.70 |
+|     **22** |    5 |    0.52 |        85.18 |    0.50 |        82.20 |
+|     **23** |    8 |    0.83 |        86.01 |    0.80 |        83.00 |
+|     **24** |    3 |    0.31 |        86.32 |    0.30 |        83.30 |
+|     **25** |   11 |    1.14 |        87.46 |    1.10 |        84.40 |
+|     **26** |    5 |    0.52 |        87.98 |    0.50 |        84.90 |
+|     **27** |    7 |    0.73 |        88.70 |    0.70 |        85.60 |
+|     **28** |   10 |    1.04 |        89.74 |    1.00 |        86.60 |
+|     **29** |    8 |    0.83 |        90.57 |    0.80 |        87.40 |
+|     **30** |    5 |    0.52 |        91.09 |    0.50 |        87.90 |
+|     **31** |    8 |    0.83 |        91.92 |    0.80 |        88.70 |
+|     **32** |    7 |    0.73 |        92.64 |    0.70 |        89.40 |
+|     **33** |    6 |    0.62 |        93.26 |    0.60 |        90.00 |
+|     **34** |    9 |    0.93 |        94.20 |    0.90 |        90.90 |
+|     **35** |    8 |    0.83 |        95.03 |    0.80 |        91.70 |
+|     **36** |    9 |    0.93 |        95.96 |    0.90 |        92.60 |
+|     **37** |   13 |    1.35 |        97.31 |    1.30 |        93.90 |
+|     **38** |   14 |    1.45 |        98.76 |    1.40 |        95.30 |
+|     **39** |    7 |    0.73 |        99.48 |    0.70 |        96.00 |
+|     **40** |    5 |    0.52 |       100.00 |    0.50 |        96.50 |
+| **\<NA\>** |   35 |         |              |    3.50 |       100.00 |
+|  **Total** | 1000 |  100.00 |       100.00 |  100.00 |       100.00 |
+
+> st_options(freq.silent = T)
+
+> lapply(tobacco_subset, freq, style = "rmarkdown")
 ### Frequencies  
 #### tobacco_subset$age.gr  
 **Label:** Age Group  
@@ -1895,7 +1981,7 @@ tobacco$samp.wgts
 |  **Total** | 1000 |  100.00 |       100.00 |  100.00 |       100.00 |
 
 # -----------------  Other global options
-> st_options(freq.totals = FALSE, freq.report.nas = FALSE)
+> st_options(freq.totals = FALSE, freq.report.nas = FALSE, freq.silent = FALSE)
 
 > freq(tobacco)
 Variable(s) ignored: age, BMI, cigs.per.day
@@ -1985,24 +2071,24 @@ Output file appended
 # -----------------  tb()
 > 
 > iris %$% freq(Species) %>% tb()
-# A tibble: 4 x 6
+# A tibble: 4 × 6
   Species     freq pct_valid pct_valid_cum pct_tot pct_tot_cum
   <fct>      <dbl>     <dbl>         <dbl>   <dbl>       <dbl>
 1 setosa        50      33.3          33.3    33.3        33.3
 2 versicolor    50      33.3          66.7    33.3        66.7
-3 virginica     50      33.3         100.     33.3       100. 
-4 <NA>           0      NA            NA       0         100. 
+3 virginica     50      33.3         100      33.3       100  
+4 <NA>           0      NA            NA       0         100  
 
 > iris %$% freq(Species, report.nas = FALSE) %>% tb()
-# A tibble: 3 x 4
+# A tibble: 3 × 4
   Species     freq   pct pct_cum
   <fct>      <dbl> <dbl>   <dbl>
 1 setosa        50  33.3    33.3
 2 versicolor    50  33.3    66.7
-3 virginica     50  33.3   100. 
+3 virginica     50  33.3   100  
 
 > iris %$% freq(Species, cumul = FALSE) %>% tb()
-# A tibble: 4 x 4
+# A tibble: 4 × 4
   Species     freq pct_valid pct_tot
   <fct>      <dbl>     <dbl>   <dbl>
 1 setosa        50      33.3    33.3
@@ -2011,7 +2097,7 @@ Output file appended
 4 <NA>           0      NA       0  
 
 > iris %$% freq(Species, cumul = FALSE, report.nas = FALSE) %>% tb()
-# A tibble: 3 x 3
+# A tibble: 3 × 3
   Species     freq   pct
   <fct>      <dbl> <dbl>
 1 setosa        50  33.3
@@ -2040,27 +2126,27 @@ Type: Character
                 Total   1000    100.00         100.00    100.00         100.00
 
 # -----------------  Deal with explicited NA's
-> tobacco$age.gr %<>% forcats::fct_explicit_na()
+> tobacco$age.gr %<>% forcats::fct_na_value_to_level("(Missing)")
 
-> freq(tobacco$age.gr)
-explicit NA's detected - temporarily setting 'report.nas' to FALSE
+> freq(tobacco$age.gr, na.val = "(Missing)")
 Frequencies  
 tobacco$age.gr  
 Label: Age Group  
 Type: Factor  
 
-                  Freq        %   % Cum.
---------------- ------ -------- --------
-          18-34    258    25.80    25.80
-          35-50    241    24.10    49.90
-          51-70    317    31.70    81.60
-           71 +    159    15.90    97.50
-      (Missing)     25     2.50   100.00
-          Total   1000   100.00   100.00
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+          18-34    258     26.46          26.46     25.80          25.80
+          35-50    241     24.72          51.18     24.10          49.90
+          51-70    317     32.51          83.69     31.70          81.60
+           71 +    159     16.31         100.00     15.90          97.50
+      (Missing)     25                               2.50         100.00
+          Total   1000    100.00         100.00    100.00         100.00
 
 # -----------------  Full dataframes
-> (ftob1 <- freq(tobacco))
-explicit NA's detected - temporarily setting 'report.nas' to FALSE
+> (ftob1 <- freq(tobacco, na.val = "(Missing)"))
+NA values detected - na.val will be ignored
+NA values detected - na.val will be ignored
 Variable(s) ignored: age, BMI, cigs.per.day
 Frequencies  
 tobacco$gender  
@@ -2078,14 +2164,14 @@ tobacco$age.gr
 Label: Age Group  
 Type: Factor  
 
-                  Freq        %   % Cum.
---------------- ------ -------- --------
-          18-34    258    25.80    25.80
-          35-50    241    24.10    49.90
-          51-70    317    31.70    81.60
-           71 +    159    15.90    97.50
-      (Missing)     25     2.50   100.00
-          Total   1000   100.00   100.00
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+          18-34    258     26.46          26.46     25.80          25.80
+          35-50    241     24.72          51.18     24.10          49.90
+          51-70    317     32.51          83.69     31.70          81.60
+           71 +    159     16.31         100.00     15.90          97.50
+      (Missing)     25                               2.50         100.00
+          Total   1000    100.00         100.00    100.00         100.00
 
 tobacco$smoker  
 Label: Subject Smokes  
@@ -2142,8 +2228,9 @@ Type: Numeric
                    <NA>      0                               0.00         100.00
                   Total   1000    100.00         100.00    100.00         100.00
 
-> (ftob2 <- freq(tobacco, display.type = FALSE))
-explicit NA's detected - temporarily setting 'report.nas' to FALSE
+> (ftob2 <- freq(tobacco, na.val = "(Missing)", display.type = FALSE))
+NA values detected - na.val will be ignored
+NA values detected - na.val will be ignored
 Variable(s) ignored: age, BMI, cigs.per.day
 Frequencies  
 tobacco$gender  
@@ -2159,14 +2246,14 @@ Label: Subject's Gender
 tobacco$age.gr  
 Label: Age Group  
 
-                  Freq        %   % Cum.
---------------- ------ -------- --------
-          18-34    258    25.80    25.80
-          35-50    241    24.10    49.90
-          51-70    317    31.70    81.60
-           71 +    159    15.90    97.50
-      (Missing)     25     2.50   100.00
-          Total   1000   100.00   100.00
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+          18-34    258     26.46          26.46     25.80          25.80
+          35-50    241     24.72          51.18     24.10          49.90
+          51-70    317     32.51          83.69     31.70          81.60
+           71 +    159     16.31         100.00     15.90          97.50
+      (Missing)     25                               2.50         100.00
+          Total   1000    100.00         100.00    100.00         100.00
 
 tobacco$smoker  
 Label: Subject Smokes  
