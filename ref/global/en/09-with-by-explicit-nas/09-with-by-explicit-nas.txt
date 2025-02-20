@@ -1,0 +1,1273 @@
+
+# -----------------  with-by.R ------------------------------------
+> suppressPackageStartupMessages(library(dplyr))
+
+> suppressPackageStartupMessages(library(forcats))
+
+> suppressPackageStartupMessages(library(magrittr))
+
+> suppressPackageStartupMessages(library(summarytools))
+
+> options(tibble.print_max = Inf)
+
+> data(tobacco)
+
+> tobacco$gender   %<>% forcats::fct_na_value_to_level("(Missing)")
+
+> tobacco$age.gr   %<>% forcats::fct_na_value_to_level("(Missing)")
+
+> tobacco$smoker   %<>% forcats::fct_na_value_to_level("(Missing)")
+
+> tobacco$diseased %<>% forcats::fct_na_value_to_level("(Missing)")
+
+> tobacco$disease  %<>% forcats::fct_na_value_to_level("(Missing)")
+
+# -----------------  with
+> w1 <- with(tobacco, freq(gender, plain.ascii = F, 
+>                         weights = samp.wgts, na.val = "(Missing)"))
+
+> view(w1, file = "01-with.md")
+Switching method to 'pander'
+Changing style to 'rmarkdown' for improved markdown compatibility
+Output file written
+
+> view(w1, file = "01-with.html")
+Output file written
+
+> (w2 <- with(tobacco, descr(BMI, transpose = TRUE, stats = "common")))
+Descriptive Statistics  
+tobacco$BMI  
+N: 1000  
+
+             Mean   Std.Dev    Min   Median     Max   N.Valid         N   Pct.Valid
+--------- ------- --------- ------ -------- ------- --------- --------- -----------
+      BMI   25.73      4.49   8.83    25.62   39.44    974.00   1000.00       97.40
+
+> view(w2, footnote = "with, transpose", file = "02-with-transposed.html")
+Output file written
+
+> view(with(tobacco, ctable(gender, diseased, style = "grid")), method = "pander")
+Cross-Tabulation, Row Proportions  
+gender * diseased  
+Data Frame: tobacco  
+
++-----------+----------+-------------+-------------+-----------+---------------+
+|           | diseased |         Yes |          No | (Missing) |         Total |
++-----------+----------+-------------+-------------+-----------+---------------+
+|    gender |          |             |             |           |               |
++-----------+----------+-------------+-------------+-----------+---------------+
+|         F |          | 111 (22.7%) | 378 (77.3%) |  0 (0.0%) |  489 (100.0%) |
++-----------+----------+-------------+-------------+-----------+---------------+
+|         M |          | 110 (22.5%) | 379 (77.5%) |  0 (0.0%) |  489 (100.0%) |
++-----------+----------+-------------+-------------+-----------+---------------+
+| (Missing) |          |   3 (13.6%) |  19 (86.4%) |  0 (0.0%) |   22 (100.0%) |
++-----------+----------+-------------+-------------+-----------+---------------+
+|     Total |          | 224 (22.4%) | 776 (77.6%) |  0 (0.0%) | 1000 (100.0%) |
++-----------+----------+-------------+-------------+-----------+---------------+
+
+> (w3 <- with(tobacco, ctable(gender, diseased, style = "grid", prop = "C", useNA = "always")))
+Cross-Tabulation, Column Proportions  
+gender * diseased  
+Data Frame: tobacco  
+
++-----------+----------+--------------+--------------+-----------+----------+---------------+
+|           | diseased |          Yes |           No | (Missing) |     <NA> |         Total |
++-----------+----------+--------------+--------------+-----------+----------+---------------+
+|    gender |          |              |              |           |          |               |
++-----------+----------+--------------+--------------+-----------+----------+---------------+
+|         F |          | 111 ( 49.6%) | 378 ( 48.7%) |  0 (0.0%) | 0 (0.0%) |  489 ( 48.9%) |
++-----------+----------+--------------+--------------+-----------+----------+---------------+
+|         M |          | 110 ( 49.1%) | 379 ( 48.8%) |  0 (0.0%) | 0 (0.0%) |  489 ( 48.9%) |
++-----------+----------+--------------+--------------+-----------+----------+---------------+
+| (Missing) |          |    3 ( 1.3%) |   19 ( 2.4%) |  0 (0.0%) | 0 (0.0%) |    22 ( 2.2%) |
++-----------+----------+--------------+--------------+-----------+----------+---------------+
+|      <NA> |          |    0 ( 0.0%) |    0 ( 0.0%) |  0 (0.0%) | 0 (0.0%) |     0 ( 0.0%) |
++-----------+----------+--------------+--------------+-----------+----------+---------------+
+|     Total |          | 224 (100.0%) | 776 (100.0%) |  0 (0.0%) | 0 (0.0%) | 1000 (100.0%) |
++-----------+----------+--------------+--------------+-----------+----------+---------------+
+
+> view(w3, method = "browser", footnote = "with, prop = c", file = "03-with-col-props.html")
+Output file written
+
+# -----------------  by
+> bf1 <- stby(data = tobacco$diseased, INDICES = tobacco$smoker, FUN = freq, na.val = "(Missing)")
+
+> view(bf1, 'pander')
+Frequencies  
+tobacco$diseased  
+Type: Factor  
+Group: smoker = Yes  
+
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+            Yes    125     41.95          41.95     41.95          41.95
+             No    173     58.05         100.00     58.05         100.00
+      (Missing)      0                               0.00         100.00
+          Total    298    100.00         100.00    100.00         100.00
+
+Group: smoker = No  
+
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+            Yes     99     14.10          14.10     14.10          14.10
+             No    603     85.90         100.00     85.90         100.00
+      (Missing)      0                               0.00         100.00
+          Total    702    100.00         100.00    100.00         100.00
+
+> view(bf1, 'pander', headings = FALSE, plain.ascii = FALSE)
+**Group:** smoker = Yes  
+
+         &nbsp;   Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+        **Yes**    125     41.95          41.95     41.95          41.95
+         **No**    173     58.05         100.00     58.05         100.00
+  **(Missing)**      0                               0.00         100.00
+      **Total**    298    100.00         100.00    100.00         100.00
+
+**Group:** smoker = No  
+
+         &nbsp;   Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+        **Yes**     99     14.10          14.10     14.10          14.10
+         **No**    603     85.90         100.00     85.90         100.00
+  **(Missing)**      0                               0.00         100.00
+      **Total**    702    100.00         100.00    100.00         100.00
+
+> print(bf1)
+Frequencies  
+tobacco$diseased  
+Type: Factor  
+Group: smoker = Yes  
+
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+            Yes    125     41.95          41.95     41.95          41.95
+             No    173     58.05         100.00     58.05         100.00
+      (Missing)      0                               0.00         100.00
+          Total    298    100.00         100.00    100.00         100.00
+
+Group: smoker = No  
+
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+            Yes     99     14.10          14.10     14.10          14.10
+             No    603     85.90         100.00     85.90         100.00
+      (Missing)      0                               0.00         100.00
+          Total    702    100.00         100.00    100.00         100.00
+
+> view(bf1, file = "04-by-freq.html", missing = "xxxx")
+Output file written
+Output file appended
+
+# -----------------  with + by
+> label(tobacco$BMI) <- "Body Mass Index"
+
+> label(tobacco$diseased) <- "Subject has illness"
+
+> view(stby(data = tobacco$diseased, INDICES = tobacco$smoker, FUN = freq), file = "05-with-and-by-freq.html")
+Output file written
+Output file appended
+
+> view(stby(data = tobacco$BMI, INDICES = tobacco$gender, FUN = descr), file = "06-with-and-by-descr.md")
+Switching method to 'pander'
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
+Output file written
+
+> bf2 <- stby(iris$Species, iris$Sepal.Length > mean(iris$Sepal.Length), freq)
+
+> view(bf2, 'pander')
+Frequencies  
+iris$Species  
+Type: Factor  
+Group: Sepal.Length > mean(Sepal.Length) = FALSE  
+
+                   Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+---------------- ------ --------- -------------- --------- --------------
+          setosa     50     62.50          62.50     62.50          62.50
+      versicolor     24     30.00          92.50     30.00          92.50
+       virginica      6      7.50         100.00      7.50         100.00
+            <NA>      0                               0.00         100.00
+           Total     80    100.00         100.00    100.00         100.00
+
+Group: Sepal.Length > mean(Sepal.Length) = TRUE  
+
+                   Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+---------------- ------ --------- -------------- --------- --------------
+          setosa      0      0.00           0.00      0.00           0.00
+      versicolor     26     37.14          37.14     37.14          37.14
+       virginica     44     62.86         100.00     62.86         100.00
+            <NA>      0                               0.00         100.00
+           Total     70    100.00         100.00    100.00         100.00
+
+> view(bf2, method = "browser", footnote = "condition for by", file = "07-by-calculated-freq.html")
+Output file written
+Output file appended
+
+> bd1 <- stby(data = tobacco$BMI, INDICES = tobacco$gender, FUN = descr, style = "grid")
+
+> view(bd1, headings = FALSE, method = "browser", footnote = "by, no headings", file = "08-by-descr-no-head.html")
+Output file written
+
+> view(bd1, method = 'pander')
+Descriptive Statistics  
+BMI by gender  
+Data Frame: tobacco  
+Label: Body Mass Index  
+N: 1000  
+
++-----------------+--------+--------+-----------+
+|                 |      F |      M | (Missing) |
++=================+========+========+===========+
+|            Mean |  26.10 |  25.31 |     26.95 |
++-----------------+--------+--------+-----------+
+|         Std.Dev |   4.95 |   3.98 |      3.51 |
++-----------------+--------+--------+-----------+
+|             Min |   9.01 |   8.83 |     20.24 |
++-----------------+--------+--------+-----------+
+|              Q1 |  22.98 |  22.52 |     24.97 |
++-----------------+--------+--------+-----------+
+|          Median |  25.87 |  25.14 |     27.16 |
++-----------------+--------+--------+-----------+
+|              Q3 |  29.48 |  27.96 |     30.23 |
++-----------------+--------+--------+-----------+
+|             Max |  39.44 |  36.76 |     32.43 |
++-----------------+--------+--------+-----------+
+|             MAD |   4.75 |   4.02 |      4.07 |
++-----------------+--------+--------+-----------+
+|             IQR |   6.49 |   5.44 |      5.06 |
++-----------------+--------+--------+-----------+
+|              CV |   0.19 |   0.16 |      0.13 |
++-----------------+--------+--------+-----------+
+|        Skewness |  -0.02 |  -0.04 |     -0.34 |
++-----------------+--------+--------+-----------+
+|     SE.Skewness |   0.11 |   0.11 |      0.49 |
++-----------------+--------+--------+-----------+
+|        Kurtosis |   0.09 |   0.17 |     -0.92 |
++-----------------+--------+--------+-----------+
+|         N.Valid | 475.00 | 477.00 |     22.00 |
++-----------------+--------+--------+-----------+
+|               N | 489.00 | 489.00 |     22.00 |
++-----------------+--------+--------+-----------+
+|       Pct.Valid |  97.14 |  97.55 |    100.00 |
++-----------------+--------+--------+-----------+
+
+> bd2 <- stby(data = tobacco, INDICES = tobacco$gender, FUN = descr)
+
+> view(bd2, method = "browser", file = "09-by-descr.html")
+Non-numerical variable(s) ignored: age.gr, smoker, diseased, disease
+Output file written
+Output file appended
+
+> view(bd2, method = "pander", file = "09-by-descr-view.md")
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
+Non-numerical variable(s) ignored: age.gr, smoker, diseased, disease
+Output file written
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
+Output file appended
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
+Output file appended
+
+> label(tobacco) <- "Blabla"
+
+> bd3 <- stby(data = tobacco, INDICES = tobacco$gender, FUN = descr)
+
+> st_options(display.labels = FALSE)
+
+> view(bd3, display.labels = T, method = "browser", footnote = "override option disp.labels = F", file = "10-by-descr.html")
+Non-numerical variable(s) ignored: age.gr, smoker, diseased, disease
+Output file written
+Output file appended
+
+> print(bd3, file = "10-by-descr.md")
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
+Non-numerical variable(s) ignored: age.gr, smoker, diseased, disease
+Output file written
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
+Output file appended
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
+Output file appended
+
+> attach(tobacco)
+
+> bd4 <- stby(data = BMI, INDICES = gender, FUN = descr)
+
+> view(bd4, method = "browser", footnote = "stand-alone variable", file = "11-by-descr-standalone-var.html")
+Output file written
+
+> print(bd4, file = "11-by-descr-standalone-var.md")
+Setting 'plain.ascii' to FALSE and changing style to 'rmarkdown' for improved markdown compatibility
+Output file written
+
+> detach(tobacco)
+
+# -----------------  cas particulier - by, 1 groupe seul.
+> (b8 <- stby(iris, !is.na(iris$Species), descr))
+Non-numerical variable(s) ignored: Species
+Descriptive Statistics  
+iris  
+Group: !is.na(Species) = TRUE  
+N: 150  
+
+                    Petal.Length   Petal.Width   Sepal.Length   Sepal.Width
+----------------- -------------- ------------- -------------- -------------
+             Mean           3.76          1.20           5.84          3.06
+          Std.Dev           1.77          0.76           0.83          0.44
+              Min           1.00          0.10           4.30          2.00
+               Q1           1.60          0.30           5.10          2.80
+           Median           4.35          1.30           5.80          3.00
+               Q3           5.10          1.80           6.40          3.30
+              Max           6.90          2.50           7.90          4.40
+              MAD           1.85          1.04           1.04          0.44
+              IQR           3.50          1.50           1.30          0.50
+               CV           0.47          0.64           0.14          0.14
+         Skewness          -0.27         -0.10           0.31          0.31
+      SE.Skewness           0.20          0.20           0.20          0.20
+         Kurtosis          -1.42         -1.36          -0.61          0.14
+          N.Valid         150.00        150.00         150.00        150.00
+                N         150.00        150.00         150.00        150.00
+        Pct.Valid         100.00        100.00         100.00        100.00
+
+> view(with(tobacco, descr(BMI, transpose = TRUE)), method = "browser", footnote = "with, transpose", file = "12.html")
+Output file written
+
+> attach(tobacco)
+
+> view(stby(data = BMI, INDICES = gender, FUN = descr), method = "browser", file = "13.html") 
+Output file written
+
+> view(stby(data = BMI, INDICES = gender, FUN = descr), method = "pander", style = "rmarkdown") 
+### Descriptive Statistics  
+#### BMI by gender  
+**N:** 1000  
+
+|          &nbsp; |      F |      M | (Missing) |
+|----------------:|-------:|-------:|----------:|
+|        **Mean** |  26.10 |  25.31 |     26.95 |
+|     **Std.Dev** |   4.95 |   3.98 |      3.51 |
+|         **Min** |   9.01 |   8.83 |     20.24 |
+|          **Q1** |  22.98 |  22.52 |     24.97 |
+|      **Median** |  25.87 |  25.14 |     27.16 |
+|          **Q3** |  29.48 |  27.96 |     30.23 |
+|         **Max** |  39.44 |  36.76 |     32.43 |
+|         **MAD** |   4.75 |   4.02 |      4.07 |
+|         **IQR** |   6.49 |   5.44 |      5.06 |
+|          **CV** |   0.19 |   0.16 |      0.13 |
+|    **Skewness** |  -0.02 |  -0.04 |     -0.34 |
+| **SE.Skewness** |   0.11 |   0.11 |      0.49 |
+|    **Kurtosis** |   0.09 |   0.17 |     -0.92 |
+|     **N.Valid** | 475.00 | 477.00 |     22.00 |
+|           **N** | 489.00 | 489.00 |     22.00 |
+|   **Pct.Valid** |  97.14 |  97.55 |    100.00 |
+
+> view(stby(data = BMI, INDICES = gender, FUN = descr), method = "render") 
+<div class="container st-container">
+  <h3>Descriptive Statistics</h3>
+  <h4> BMI by gender </h4>
+  <strong>N</strong>: 1000
+  <br/>
+  <table class="table table-bordered table-striped st-table st-table-bordered st-table-striped st-descr-table ">
+  <thead>
+    <tr>
+      <th></th>
+      <th align="center" class="st-protect-top-border">F</th>
+      <th align="center" class="st-protect-top-border">M</th>
+      <th align="center" class="st-protect-top-border">(Missing)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>Mean</strong></td>
+      <td><span>26.10</span></td>
+      <td><span>25.31</span></td>
+      <td><span>26.95</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Std.Dev</strong></td>
+      <td><span>4.95</span></td>
+      <td><span>3.98</span></td>
+      <td><span>3.51</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Min</strong></td>
+      <td><span>9.01</span></td>
+      <td><span>8.83</span></td>
+      <td><span>20.24</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Q1</strong></td>
+      <td><span>22.98</span></td>
+      <td><span>22.52</span></td>
+      <td><span>24.97</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Median</strong></td>
+      <td><span>25.87</span></td>
+      <td><span>25.14</span></td>
+      <td><span>27.16</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Q3</strong></td>
+      <td><span>29.48</span></td>
+      <td><span>27.96</span></td>
+      <td><span>30.23</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Max</strong></td>
+      <td><span>39.44</span></td>
+      <td><span>36.76</span></td>
+      <td><span>32.43</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>MAD</strong></td>
+      <td><span>4.75</span></td>
+      <td><span>4.02</span></td>
+      <td><span>4.07</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>IQR</strong></td>
+      <td><span>6.49</span></td>
+      <td><span>5.44</span></td>
+      <td><span>5.06</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>CV</strong></td>
+      <td><span>0.19</span></td>
+      <td><span>0.16</span></td>
+      <td><span>0.13</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Skewness</strong></td>
+      <td><span>-0.02</span></td>
+      <td><span>-0.04</span></td>
+      <td><span>-0.34</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>SE.Skewness</strong></td>
+      <td><span>0.11</span></td>
+      <td><span>0.11</span></td>
+      <td><span>0.49</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Kurtosis</strong></td>
+      <td><span>0.09</span></td>
+      <td><span>0.17</span></td>
+      <td><span>-0.92</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>N.Valid</strong></td>
+      <td><span>475</span></td>
+      <td><span>477</span></td>
+      <td><span>22</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>N</strong></td>
+      <td><span>489</span></td>
+      <td><span>489</span></td>
+      <td><span>22</span></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Pct.Valid</strong></td>
+      <td><span>97.14</span></td>
+      <td><span>97.55</span></td>
+      <td><span>100.00</span></td>
+    </tr>
+  </tbody>
+</table>
+  <p>Generated by <a href='https://github.com/dcomtois/summarytools'>summarytools</a> 1.1.0 (<a href='https://www.r-project.org/'>R</a> version 4.4.2)<br/>2025-02-12</p>
+</div>
+
+> detach(tobacco)
+
+> stby(tobacco, tobacco$gender, dfSummary)
+Data Frame Summary  
+tobacco  
+Group: gender = F  
+Dimensions: 489 x 9  
+Duplicates: 0  
+
+--------------------------------------------------------------------------------------------------------------
+No   Variable       Stats / Values            Freqs (% of Valid)    Graph                 Valid      Missing  
+---- -------------- ------------------------- --------------------- --------------------- ---------- ---------
+2    age            Mean (sd) : 49.6 (18.3)   63 distinct values    :     . . .   : . :   475        14       
+     [numeric]      min < med < max:                                : : : : : : : : : :   (97.1%)    (2.9%)   
+                    18 < 50 < 80                                    : : : : : : : : : :                       
+                    IQR (CV) : 32 (0.4)                             : : : : : : : : : :                       
+                                                                    : : : : : : : : : :                       
+
+3    age.gr         1. 18-34                  123 (25.2%)           IIIII                 489        0        
+     [factor]       2. 35-50                  118 (24.1%)           IIII                  (100.0%)   (0.0%)   
+                    3. 51-70                  157 (32.1%)           IIIIII                                    
+                    4. 71 +                    77 (15.7%)           III                                       
+                    5. (Missing)               14 ( 2.9%)                                                     
+
+4    BMI            Mean (sd) : 26.1 (4.9)    475 distinct values           :             475        14       
+     [numeric]      min < med < max:                                      : :             (97.1%)    (2.9%)   
+                    9 < 25.9 < 39.4                                       : : .                               
+                    IQR (CV) : 6.5 (0.2)                                . : : :                               
+                                                                        : : : : .                             
+
+5    smoker         1. Yes                    147 (30.1%)           IIIIII                489        0        
+     [factor]       2. No                     342 (69.9%)           IIIIIIIIIIIII         (100.0%)   (0.0%)   
+                    3. (Missing)                0 ( 0.0%)                                                     
+
+6    cigs.per.day   Mean (sd) : 6.9 (12)      37 distinct values    :                     468        21       
+     [numeric]      min < med < max:                                :                     (95.7%)    (4.3%)   
+                    0 < 0 < 40                                      :                                         
+                    IQR (CV) : 10.2 (1.8)                           :                                         
+                                                                    : . . .   . . .                           
+
+7    diseased       1. Yes                    111 (22.7%)           IIII                  489        0        
+     [factor]       2. No                     378 (77.3%)           IIIIIIIIIIIIIII       (100.0%)   (0.0%)   
+                    3. (Missing)                0 ( 0.0%)                                                     
+
+8    disease        1. Cancer                  16 ( 3.3%)                                 489        0        
+     [factor]       2. Cholesterol             10 ( 2.0%)                                 (100.0%)   (0.0%)   
+                    3. Diabetes                 8 ( 1.6%)                                                     
+                    4. Digestive                5 ( 1.0%)                                                     
+                    5. Hearing                  5 ( 1.0%)                                                     
+                    6. Heart                    9 ( 1.8%)                                                     
+                    7. Hypertension            18 ( 3.7%)                                                     
+                    8. Hypotension              7 ( 1.4%)                                                     
+                    9. Musculoskeletal          8 ( 1.6%)                                                     
+                    10. Neurological            7 ( 1.4%)                                                     
+                    [ 4 others ]              396 (81.0%)           IIIIIIIIIIIIIIII                          
+
+9    samp.wgts      Mean (sd) : 1 (0.1)       0.86!: 131 (26.8%)    IIIII                 489        0        
+     [numeric]      min < med < max:          1.04!: 120 (24.5%)    IIII                  (100.0%)   (0.0%)   
+                    0.9 < 1 < 1.1             1.05!: 160 (32.7%)    IIIIII                                    
+                    IQR (CV) : 0.2 (0.1)      1.06!:  78 (16.0%)    III                                       
+                                              ! rounded                                                       
+--------------------------------------------------------------------------------------------------------------
+
+Group: gender = M  
+Dimensions: 489 x 9  
+Duplicates: 2  
+
+--------------------------------------------------------------------------------------------------------------
+No   Variable       Stats / Values            Freqs (% of Valid)    Graph                 Valid      Missing  
+---- -------------- ------------------------- --------------------- --------------------- ---------- ---------
+2    age            Mean (sd) : 49.6 (18.3)   63 distinct values          .     .   . :   478        11       
+     [numeric]      min < med < max:                                : : : : :   : : : :   (97.8%)    (2.2%)   
+                    18 < 49.5 < 80                                  : : : : : : : : : :                       
+                    IQR (CV) : 32 (0.4)                             : : : : : : : : : :                       
+                                                                    : : : : : : : : : :                       
+
+3    age.gr         1. 18-34                  130 (26.6%)           IIIII                 489        0        
+     [factor]       2. 35-50                  118 (24.1%)           IIII                  (100.0%)   (0.0%)   
+                    3. 51-70                  151 (30.9%)           IIIIII                                    
+                    4. 71 +                    79 (16.2%)           III                                       
+                    5. (Missing)               11 ( 2.2%)                                                     
+
+4    BMI            Mean (sd) : 25.3 (4)      477 distinct values             : .         477        12       
+     [numeric]      min < med < max:                                          : :         (97.5%)    (2.5%)   
+                    8.8 < 25.1 < 36.8                                       : : : .                           
+                    IQR (CV) : 5.4 (0.2)                                    : : : : .                         
+                                                                          : : : : : :                         
+
+5    smoker         1. Yes                    143 (29.2%)           IIIII                 489        0        
+     [factor]       2. No                     346 (70.8%)           IIIIIIIIIIIIII        (100.0%)   (0.0%)   
+                    3. (Missing)                0 ( 0.0%)                                                     
+
+6    cigs.per.day   Mean (sd) : 6.7 (11.8)    36 distinct values    :                     475        14       
+     [numeric]      min < med < max:                                :                     (97.1%)    (2.9%)   
+                    0 < 0 < 40                                      :                                         
+                    IQR (CV) : 11 (1.8)                             :                                         
+                                                                    :   .   . . . .                           
+
+7    diseased       1. Yes                    110 (22.5%)           IIII                  489        0        
+     [factor]       2. No                     379 (77.5%)           IIIIIIIIIIIIIII       (100.0%)   (0.0%)   
+                    3. (Missing)                0 ( 0.0%)                                                     
+
+8    disease        1. Cancer                  18 ( 3.7%)                                 489        0        
+     [factor]       2. Cholesterol             11 ( 2.2%)                                 (100.0%)   (0.0%)   
+                    3. Diabetes                 5 ( 1.0%)                                                     
+                    4. Digestive                7 ( 1.4%)                                                     
+                    5. Hearing                  9 ( 1.8%)                                                     
+                    6. Heart                   11 ( 2.2%)                                                     
+                    7. Hypertension            17 ( 3.5%)                                                     
+                    8. Hypotension              4 ( 0.8%)                                                     
+                    9. Musculoskeletal         10 ( 2.0%)                                                     
+                    10. Neurological            3 ( 0.6%)                                                     
+                    [ 4 others ]              394 (80.6%)           IIIIIIIIIIIIIIII                          
+
+9    samp.wgts      Mean (sd) : 1 (0.1)       0.86!: 131 (26.8%)    IIIII                 489        0        
+     [numeric]      min < med < max:          1.04!: 124 (25.4%)    IIIII                 (100.0%)   (0.0%)   
+                    0.9 < 1 < 1.1             1.05!: 155 (31.7%)    IIIIII                                    
+                    IQR (CV) : 0.2 (0.1)      1.06!:  79 (16.2%)    III                                       
+                                              ! rounded                                                       
+--------------------------------------------------------------------------------------------------------------
+
+Group: gender = (Missing)  
+Dimensions: 22 x 9  
+Duplicates: 0  
+
+-----------------------------------------------------------------------------------------------------------
+No   Variable       Stats / Values            Freqs (% of Valid)   Graph               Valid      Missing  
+---- -------------- ------------------------- -------------------- ------------------- ---------- ---------
+2    age            Mean (sd) : 50.9 (18.2)   18 distinct values           :           22         0        
+     [numeric]      min < med < max:                                 :     : :         (100.0%)   (0.0%)   
+                    19 < 55.5 < 80                                   : :   : : :                           
+                    IQR (CV) : 27.2 (0.4)                            : : : : : :                           
+                                                                   : : : : : : :                           
+
+3    age.gr         1. 18-34                  5 (22.7%)            IIII                22         0        
+     [factor]       2. 35-50                  5 (22.7%)            IIII                (100.0%)   (0.0%)   
+                    3. 51-70                  9 (40.9%)            IIIIIIII                                
+                    4. 71 +                   3 (13.6%)            II                                      
+                    5. (Missing)              0 ( 0.0%)                                                    
+
+4    BMI            Mean (sd) : 26.9 (3.5)    22 distinct values       :     :         22         0        
+     [numeric]      min < med < max:                                   : :   :         (100.0%)   (0.0%)   
+                    20.2 < 27.2 < 32.4                             :   : : : :                             
+                    IQR (CV) : 5.1 (0.1)                           :   : : : :                             
+                                                                   : : : : : : :                           
+
+5    smoker         1. Yes                     8 (36.4%)           IIIIIII             22         0        
+     [factor]       2. No                     14 (63.6%)           IIIIIIIIIIII        (100.0%)   (0.0%)   
+                    3. (Missing)               0 ( 0.0%)                                                   
+
+6    cigs.per.day   Mean (sd) : 6.1 (9.7)     0 : 14 (63.6%)       IIIIIIIIIIII        22         0        
+     [numeric]      min < med < max:          5 :  2 ( 9.1%)       I                   (100.0%)   (0.0%)   
+                    0 < 0 < 28                10 :  1 ( 4.5%)                                              
+                    IQR (CV) : 8.8 (1.6)      19 :  1 ( 4.5%)                                              
+                                              21 :  2 ( 9.1%)      I                                       
+                                              25 :  1 ( 4.5%)                                              
+                                              28 :  1 ( 4.5%)                                              
+
+7    diseased       1. Yes                     3 (13.6%)           II                  22         0        
+     [factor]       2. No                     19 (86.4%)           IIIIIIIIIIIIIIIII   (100.0%)   (0.0%)   
+                    3. (Missing)               0 ( 0.0%)                                                   
+
+8    disease        1. Cancer                  0 ( 0.0%)                               22         0        
+     [factor]       2. Cholesterol             0 ( 0.0%)                               (100.0%)   (0.0%)   
+                    3. Diabetes                1 ( 4.5%)                                                   
+                    4. Digestive               0 ( 0.0%)                                                   
+                    5. Hearing                 0 ( 0.0%)                                                   
+                    6. Heart                   0 ( 0.0%)                                                   
+                    7. Hypertension            1 ( 4.5%)                                                   
+                    8. Hypotension             0 ( 0.0%)                                                   
+                    9. Musculoskeletal         1 ( 4.5%)                                                   
+                    10. Neurological           0 ( 0.0%)                                                   
+                    [ 4 others ]              19 (86.4%)           IIIIIIIIIIIIIIIII                       
+
+9    samp.wgts      Mean (sd) : 1 (0.1)       0.86!: 5 (22.7%)     IIII                22         0        
+     [numeric]      min < med < max:          1.04!: 5 (22.7%)     IIII                (100.0%)   (0.0%)   
+                    0.9 < 1 < 1.1             1.05!: 9 (40.9%)     IIIIIIII                                
+                    IQR (CV) : 0 (0.1)        1.06!: 3 (13.6%)     II                                      
+                                              ! rounded                                                    
+-----------------------------------------------------------------------------------------------------------
+
+> stby(tobacco, tobacco$gender, descr)
+Non-numerical variable(s) ignored: age.gr, smoker, diseased, disease
+Descriptive Statistics  
+tobacco  
+Group: gender = F  
+N: 489  
+
+                       age      BMI   cigs.per.day   samp.wgts
+----------------- -------- -------- -------------- -----------
+             Mean    49.56    26.10           6.88        1.00
+          Std.Dev    18.28     4.95          12.04        0.08
+              Min    18.00     9.01           0.00        0.86
+               Q1    34.00    22.98           0.00        0.86
+           Median    50.00    25.87           0.00        1.04
+               Q3    66.00    29.48          10.50        1.05
+              Max    80.00    39.44          40.00        1.06
+              MAD    23.72     4.75           0.00        0.01
+              IQR    32.00     6.49          10.25        0.19
+               CV     0.37     0.19           1.75        0.08
+         Skewness    -0.04    -0.02           1.53       -1.03
+      SE.Skewness     0.11     0.11           0.11        0.11
+         Kurtosis    -1.25     0.09           0.85       -0.92
+          N.Valid   475.00   475.00         468.00      489.00
+                N   489.00   489.00         489.00      489.00
+        Pct.Valid    97.14    97.14          95.71      100.00
+
+Group: gender = M  
+N: 489  
+
+                       age      BMI   cigs.per.day   samp.wgts
+----------------- -------- -------- -------------- -----------
+             Mean    49.58    25.31           6.72        1.00
+          Std.Dev    18.34     3.98          11.83        0.08
+              Min    18.00     8.83           0.00        0.86
+               Q1    34.00    22.52           0.00        0.86
+           Median    49.50    25.14           0.00        1.04
+               Q3    66.00    27.96          11.00        1.05
+              Max    80.00    36.76          40.00        1.06
+              MAD    24.46     4.02           0.00        0.01
+              IQR    32.00     5.44          11.00        0.19
+               CV     0.37     0.16           1.76        0.08
+         Skewness    -0.04    -0.04           1.54       -1.03
+      SE.Skewness     0.11     0.11           0.11        0.11
+         Kurtosis    -1.27     0.17           0.92       -0.92
+          N.Valid   478.00   477.00         475.00      489.00
+                N   489.00   489.00         489.00      489.00
+        Pct.Valid    97.75    97.55          97.14      100.00
+
+Group: gender = (Missing)  
+N: 22  
+
+                       age      BMI   cigs.per.day   samp.wgts
+----------------- -------- -------- -------------- -----------
+             Mean    50.86    26.95           6.09        1.01
+          Std.Dev    18.23     3.51           9.72        0.08
+              Min    19.00    20.24           0.00        0.86
+               Q1    36.00    24.97           0.00        1.04
+           Median    55.50    27.16           0.00        1.05
+               Q3    64.00    30.23          10.00        1.05
+              Max    80.00    32.43          28.00        1.06
+              MAD    22.98     4.07           0.00        0.01
+              IQR    27.25     5.06           8.75        0.01
+               CV     0.36     0.13           1.60        0.08
+         Skewness    -0.13    -0.34           1.13       -1.20
+      SE.Skewness     0.49     0.49           0.49        0.49
+         Kurtosis    -1.36    -0.92          -0.44       -0.56
+          N.Valid    22.00    22.00          22.00       22.00
+                N    22.00    22.00          22.00       22.00
+        Pct.Valid   100.00   100.00         100.00      100.00
+
+> tobacco$disease <- factor(tobacco$disease)
+
+> stby(tobacco$disease, list(tobacco$smoker, tobacco$gender), freq)
+Frequencies  
+tobacco$disease  
+Type: Factor  
+Group: smoker = Yes, gender = F  
+
+                        Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------------- ------ --------- -------------- --------- --------------
+               Cancer     10      6.80           6.80      6.80           6.80
+          Cholesterol      6      4.08          10.88      4.08          10.88
+             Diabetes      3      2.04          12.93      2.04          12.93
+            Digestive      2      1.36          14.29      1.36          14.29
+              Hearing      2      1.36          15.65      1.36          15.65
+                Heart      9      6.12          21.77      6.12          21.77
+         Hypertension      8      5.44          27.21      5.44          27.21
+          Hypotension      4      2.72          29.93      2.72          29.93
+      Musculoskeletal      3      2.04          31.97      2.04          31.97
+         Neurological      3      2.04          34.01      2.04          34.01
+                Other      1      0.68          34.69      0.68          34.69
+            Pulmonary      8      5.44          40.14      5.44          40.14
+               Vision      2      1.36          41.50      1.36          41.50
+            (Missing)     86     58.50         100.00     58.50         100.00
+                 <NA>      0                               0.00         100.00
+                Total    147    100.00         100.00    100.00         100.00
+
+Group: smoker = No, gender = F  
+
+                        Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------------- ------ --------- -------------- --------- --------------
+               Cancer      6      1.75           1.75      1.75           1.75
+          Cholesterol      4      1.17           2.92      1.17           2.92
+             Diabetes      5      1.46           4.39      1.46           4.39
+            Digestive      3      0.88           5.26      0.88           5.26
+              Hearing      3      0.88           6.14      0.88           6.14
+                Heart      0      0.00           6.14      0.00           6.14
+         Hypertension     10      2.92           9.06      2.92           9.06
+          Hypotension      3      0.88           9.94      0.88           9.94
+      Musculoskeletal      5      1.46          11.40      1.46          11.40
+         Neurological      4      1.17          12.57      1.17          12.57
+                Other      0      0.00          12.57      0.00          12.57
+            Pulmonary      1      0.29          12.87      0.29          12.87
+               Vision      4      1.17          14.04      1.17          14.04
+            (Missing)    294     85.96         100.00     85.96         100.00
+                 <NA>      0                               0.00         100.00
+                Total    342    100.00         100.00    100.00         100.00
+
+Group: smoker = (Missing), gender = F  
+
+                        Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------------- ------ --------- -------------- --------- --------------
+               Cancer     12      8.39           8.39      8.39           8.39
+          Cholesterol      6      4.20          12.59      4.20          12.59
+             Diabetes      1      0.70          13.29      0.70          13.29
+            Digestive      4      2.80          16.08      2.80          16.08
+              Hearing      4      2.80          18.88      2.80          18.88
+                Heart      6      4.20          23.08      4.20          23.08
+         Hypertension     10      6.99          30.07      6.99          30.07
+          Hypotension      1      0.70          30.77      0.70          30.77
+      Musculoskeletal      4      2.80          33.57      2.80          33.57
+         Neurological      2      1.40          34.97      1.40          34.97
+                Other      0      0.00          34.97      0.00          34.97
+            Pulmonary     10      6.99          41.96      6.99          41.96
+               Vision      3      2.10          44.06      2.10          44.06
+            (Missing)     80     55.94         100.00     55.94         100.00
+                 <NA>      0                               0.00         100.00
+                Total    143    100.00         100.00    100.00         100.00
+
+Group: smoker = Yes, gender = M  
+
+                        Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------------- ------ --------- -------------- --------- --------------
+               Cancer      6      1.73           1.73      1.73           1.73
+          Cholesterol      5      1.45           3.18      1.45           3.18
+             Diabetes      4      1.16           4.34      1.16           4.34
+            Digestive      3      0.87           5.20      0.87           5.20
+              Hearing      5      1.45           6.65      1.45           6.65
+                Heart      5      1.45           8.09      1.45           8.09
+         Hypertension      7      2.02          10.12      2.02          10.12
+          Hypotension      3      0.87          10.98      0.87          10.98
+      Musculoskeletal      6      1.73          12.72      1.73          12.72
+         Neurological      1      0.29          13.01      0.29          13.01
+                Other      1      0.29          13.29      0.29          13.29
+            Pulmonary      1      0.29          13.58      0.29          13.58
+               Vision      0      0.00          13.58      0.00          13.58
+            (Missing)    299     86.42         100.00     86.42         100.00
+                 <NA>      0                               0.00         100.00
+                Total    346    100.00         100.00    100.00         100.00
+
+Group: smoker = No, gender = M  
+
+                        Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------------- ------ --------- -------------- --------- --------------
+               Cancer      0      0.00           0.00      0.00           0.00
+          Cholesterol      0      0.00           0.00      0.00           0.00
+             Diabetes      0      0.00           0.00      0.00           0.00
+            Digestive      0      0.00           0.00      0.00           0.00
+              Hearing      0      0.00           0.00      0.00           0.00
+                Heart      0      0.00           0.00      0.00           0.00
+         Hypertension      0      0.00           0.00      0.00           0.00
+          Hypotension      0      0.00           0.00      0.00           0.00
+      Musculoskeletal      0      0.00           0.00      0.00           0.00
+         Neurological      0      0.00           0.00      0.00           0.00
+                Other      0      0.00           0.00      0.00           0.00
+            Pulmonary      0      0.00           0.00      0.00           0.00
+               Vision      0      0.00           0.00      0.00           0.00
+            (Missing)      8    100.00         100.00    100.00         100.00
+                 <NA>      0                               0.00         100.00
+                Total      8    100.00         100.00    100.00         100.00
+
+Group: smoker = (Missing), gender = M  
+
+                        Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------------- ------ --------- -------------- --------- --------------
+               Cancer      0      0.00           0.00      0.00           0.00
+          Cholesterol      0      0.00           0.00      0.00           0.00
+             Diabetes      1      7.14           7.14      7.14           7.14
+            Digestive      0      0.00           7.14      0.00           7.14
+              Hearing      0      0.00           7.14      0.00           7.14
+                Heart      0      0.00           7.14      0.00           7.14
+         Hypertension      1      7.14          14.29      7.14          14.29
+          Hypotension      0      0.00          14.29      0.00          14.29
+      Musculoskeletal      1      7.14          21.43      7.14          21.43
+         Neurological      0      0.00          21.43      0.00          21.43
+                Other      0      0.00          21.43      0.00          21.43
+            Pulmonary      0      0.00          21.43      0.00          21.43
+               Vision      0      0.00          21.43      0.00          21.43
+            (Missing)     11     78.57         100.00     78.57         100.00
+                 <NA>      0                               0.00         100.00
+                Total     14    100.00         100.00    100.00         100.00
+
+# -----------------  with + by
+> wb1 <- with(tobacco, stby(data = diseased, INDICES = smoker, FUN = freq)) 
+
+> view(wb1, method = "pander", caption = "with + by")
+Frequencies  
+tobacco$diseased  
+Type: Factor  
+Group: smoker = Yes  
+
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+            Yes    125     41.95          41.95     41.95          41.95
+             No    173     58.05         100.00     58.05         100.00
+      (Missing)      0      0.00         100.00      0.00         100.00
+           <NA>      0                               0.00         100.00
+          Total    298    100.00         100.00    100.00         100.00
+
+Table: with + by
+
+Group: smoker = No  
+
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+            Yes     99     14.10          14.10     14.10          14.10
+             No    603     85.90         100.00     85.90         100.00
+      (Missing)      0      0.00         100.00      0.00         100.00
+           <NA>      0                               0.00         100.00
+          Total    702    100.00         100.00    100.00         100.00
+
+Table: with + by
+
+> view(wb1, method = "browser", footnote = "with + by", file = "14.html")
+Output file written
+Output file appended
+
+> view(wb1, headings = FALSE, footnote = "no headings", file = "15.html")
+Output file written
+Output file appended
+
+> view(wb1, headings = FALSE, footnote = "no headings", method = "pander") 
+Group: smoker = Yes  
+
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+            Yes    125     41.95          41.95     41.95          41.95
+             No    173     58.05         100.00     58.05         100.00
+      (Missing)      0      0.00         100.00      0.00         100.00
+           <NA>      0                               0.00         100.00
+          Total    298    100.00         100.00    100.00         100.00
+
+Group: smoker = No  
+
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+            Yes     99     14.10          14.10     14.10          14.10
+             No    603     85.90         100.00     85.90         100.00
+      (Missing)      0      0.00         100.00      0.00         100.00
+           <NA>      0                               0.00         100.00
+          Total    702    100.00         100.00    100.00         100.00
+
+> wb2 <- with(tobacco, stby(data = BMI, INDICES = gender, FUN = descr)) 
+
+> view(wb2, method = "pander")
+Descriptive Statistics  
+BMI by gender  
+Data Frame: tobacco  
+N: 1000  
+
+                         F        M   (Missing)
+----------------- -------- -------- -----------
+             Mean    26.10    25.31       26.95
+          Std.Dev     4.95     3.98        3.51
+              Min     9.01     8.83       20.24
+               Q1    22.98    22.52       24.97
+           Median    25.87    25.14       27.16
+               Q3    29.48    27.96       30.23
+              Max    39.44    36.76       32.43
+              MAD     4.75     4.02        4.07
+              IQR     6.49     5.44        5.06
+               CV     0.19     0.16        0.13
+         Skewness    -0.02    -0.04       -0.34
+      SE.Skewness     0.11     0.11        0.49
+         Kurtosis     0.09     0.17       -0.92
+          N.Valid   475.00   477.00       22.00
+                N   489.00   489.00       22.00
+        Pct.Valid    97.14    97.55      100.00
+
+> view(wb2, method = "browser", footnote = "with + by", file = "16.html")
+Output file written
+
+> view(with(tobacco, stby(data = BMI, INDICES = gender, FUN = descr, stats = "fivenum")), method = "browser", footnote = "with + by fivenum", file = "17.html")
+Output file written
+
+> (b5 <- with(tobacco, stby(BMI, age.gr, descr, stats = c("mean", "sd", "min", "med", "max"))))
+Descriptive Statistics  
+BMI by age.gr  
+Data Frame: tobacco  
+N: 1000  
+
+                18-34   35-50   51-70    71 +   (Missing)
+------------- ------- ------- ------- ------- -----------
+         Mean   23.84   25.11   26.91   27.45       25.17
+      Std.Dev    4.23    4.34    4.26    4.37        3.64
+          Min    8.83   10.35    9.01   16.36       18.84
+       Median   24.04   25.11   26.77   27.52       24.91
+          Max   34.84   39.44   39.21   38.37       31.83
+
+> print(b5, "pander", style = "rmarkdown") 
+### Descriptive Statistics  
+#### BMI by age.gr  
+**Data Frame:** tobacco  
+**N:** 1000  
+
+|      &nbsp; | 18-34 | 35-50 | 51-70 |  71 + | (Missing) |
+|------------:|------:|------:|------:|------:|----------:|
+|    **Mean** | 23.84 | 25.11 | 26.91 | 27.45 |     25.17 |
+| **Std.Dev** |  4.23 |  4.34 |  4.26 |  4.37 |      3.64 |
+|     **Min** |  8.83 | 10.35 |  9.01 | 16.36 |     18.84 |
+|  **Median** | 24.04 | 25.11 | 26.77 | 27.52 |     24.91 |
+|     **Max** | 34.84 | 39.44 | 39.21 | 38.37 |     31.83 |
+
+> b6 <- with(tobacco, stby(BMI, age.gr, descr, stats = c("mean", "sd", "min", "max"), transpose = TRUE))
+
+> view(b6, "pander") 
+Descriptive Statistics  
+BMI by age.gr  
+Data Frame: tobacco  
+N: 1000  
+
+                   Mean   Std.Dev     Min     Max
+--------------- ------- --------- ------- -------
+          18-34   23.84      4.23    8.83   34.84
+          35-50   25.11      4.34   10.35   39.44
+          51-70   26.91      4.26    9.01   39.21
+           71 +   27.45      4.37   16.36   38.37
+      (Missing)   25.17      3.64   18.84   31.83
+
+> view(b6, method = "browser", footnote = "4 stats", file = "18.html")
+Output file written
+
+> with(tobacco, view(stby(data = diseased, INDICES = smoker, FUN = freq, totals = F), method = "browser", footnote = "with + by", file = "19.html"))
+Output file written
+Output file appended
+
+> view(with(tobacco, stby(data = BMI, INDICES = gender, FUN = descr)), method = "browser", file = "20.html")
+Output file written
+
+> with(tobacco, view(stby(data = BMI, INDICES = gender, FUN = descr), method = "pander"))
+Descriptive Statistics  
+BMI by gender  
+Data Frame: tobacco  
+N: 1000  
+
+                         F        M   (Missing)
+----------------- -------- -------- -----------
+             Mean    26.10    25.31       26.95
+          Std.Dev     4.95     3.98        3.51
+              Min     9.01     8.83       20.24
+               Q1    22.98    22.52       24.97
+           Median    25.87    25.14       27.16
+               Q3    29.48    27.96       30.23
+              Max    39.44    36.76       32.43
+              MAD     4.75     4.02        4.07
+              IQR     6.49     5.44        5.06
+               CV     0.19     0.16        0.13
+         Skewness    -0.02    -0.04       -0.34
+      SE.Skewness     0.11     0.11        0.49
+         Kurtosis     0.09     0.17       -0.92
+          N.Valid   475.00   477.00       22.00
+                N   489.00   489.00       22.00
+        Pct.Valid    97.14    97.55      100.00
+
+# -----------------  Ouverture dans viewer
+> view(b8, method = "viewer")
+Non-numerical variable(s) ignored: Species
+Output file written
+
+# -----------------  by + weights
+> with(tobacco, stby(smoker, gender, freq, weights = samp.wgts))
+Weighted Frequencies  
+tobacco$smoker  
+Type: Factor  
+Weights: samp.wgts  
+Group: gender = F  
+
+                    Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- -------- --------- -------------- --------- --------------
+            Yes   147.39     30.14          30.14     30.14          30.14
+             No   341.54     69.86         100.00     69.86         100.00
+      (Missing)     0.00      0.00         100.00      0.00         100.00
+           <NA>     0.00                               0.00         100.00
+          Total   488.92    100.00         100.00    100.00         100.00
+
+Group: gender = M  
+
+                    Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- -------- --------- -------------- --------- --------------
+            Yes   142.86     29.22          29.22     29.22          29.22
+             No   346.05     70.78         100.00     70.78         100.00
+      (Missing)     0.00      0.00         100.00      0.00         100.00
+           <NA>     0.00                               0.00         100.00
+          Total   488.92    100.00         100.00    100.00         100.00
+
+Group: gender = (Missing)  
+
+                   Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------- --------- -------------- --------- --------------
+            Yes    8.02     36.20          36.20     36.20          36.20
+             No   14.14     63.80         100.00     63.80         100.00
+      (Missing)    0.00      0.00         100.00      0.00         100.00
+           <NA>    0.00                               0.00         100.00
+          Total   22.16    100.00         100.00    100.00         100.00
+
+> with(tobacco, stby(list(x=gender, y=smoker), age.gr, ctable, weights = samp.wgts))
+Cross-Tabulation, Row Proportions  
+gender * smoker  
+Data Frame: tobacco  
+Group: age.gr = 18-34  
+
+----------- -------- -------------- --------------- ------------ ----------------
+              smoker            Yes              No    (Missing)            Total
+     gender                                                                      
+          F            29.3 (27.6%)    76.7 (72.4%)   0.0 (0.0%)   106.0 (100.0%)
+          M            32.7 (29.2%)    79.3 (70.8%)   0.0 (0.0%)   112.0 (100.0%)
+  (Missing)             1.7 (40.0%)     2.6 (60.0%)   0.0 (0.0%)     4.3 (100.0%)
+      Total            63.7 (28.7%)   158.5 (71.3%)   0.0 (0.0%)   222.2 (100.0%)
+----------- -------- -------------- --------------- ------------ ----------------
+
+Group: age.gr = 35-50  
+
+----------- -------- -------------- --------------- ------------ ----------------
+              smoker            Yes              No    (Missing)            Total
+     gender                                                                      
+          F            40.7 (33.1%)    82.5 (66.9%)   0.0 (0.0%)   123.2 (100.0%)
+          M            32.4 (26.3%)    90.8 (73.7%)   0.0 (0.0%)   123.2 (100.0%)
+  (Missing)             2.1 (40.0%)     3.1 (60.0%)   0.0 (0.0%)     5.2 (100.0%)
+      Total            75.2 (29.9%)   176.5 (70.1%)   0.0 (0.0%)   251.6 (100.0%)
+----------- -------- -------------- --------------- ------------ ----------------
+
+Group: age.gr = 51-70  
+
+----------- -------- --------------- --------------- ------------ ----------------
+              smoker             Yes              No    (Missing)            Total
+     gender                                                                       
+          F             50.4 (30.6%)   114.4 (69.4%)   0.0 (0.0%)   164.8 (100.0%)
+          M             50.4 (31.8%)   108.1 (68.2%)   0.0 (0.0%)   158.5 (100.0%)
+  (Missing)              3.1 (33.3%)     6.3 (66.7%)   0.0 (0.0%)     9.4 (100.0%)
+      Total            103.9 (31.2%)   228.8 (68.8%)   0.0 (0.0%)   332.7 (100.0%)
+----------- -------- --------------- --------------- ------------ ----------------
+
+Group: age.gr = 71 +  
+
+----------- -------- -------------- --------------- ------------ ----------------
+              smoker            Yes              No    (Missing)            Total
+     gender                                                                      
+          F            22.3 (27.3%)    59.5 (72.7%)   0.0 (0.0%)    81.8 (100.0%)
+          M            24.4 (29.1%)    59.5 (70.9%)   0.0 (0.0%)    83.9 (100.0%)
+  (Missing)             1.1 (33.3%)     2.1 (66.7%)   0.0 (0.0%)     3.2 (100.0%)
+      Total            47.8 (28.3%)   121.1 (71.7%)   0.0 (0.0%)   168.9 (100.0%)
+----------- -------- -------------- --------------- ------------ ----------------
+
+Group: age.gr = (Missing)  
+
+----------- -------- ------------- -------------- ------------ ---------------
+              smoker           Yes             No    (Missing)           Total
+     gender                                                                   
+          F            4.7 (35.6%)    8.5 (64.4%)   0.0 (0.0%)   13.2 (100.0%)
+          M            2.9 (26.0%)    8.4 (74.0%)   0.0 (0.0%)   11.3 (100.0%)
+  (Missing)            0.0 ( 0.0%)    0.0 ( 0.0%)   0.0 (0.0%)    0.0 (  0.0%)
+      Total            7.6 (31.2%)   16.9 (68.8%)   0.0 (0.0%)   24.5 (100.0%)
+----------- -------- ------------- -------------- ------------ ---------------
+
+> tobacco %>% group_by(gender) %>% freq(smoker, weights = samp.wgts)
+Weighted Frequencies  
+tobacco$smoker  
+Type: Factor  
+Weights: samp.wgts  
+Group: gender = F  
+
+                    Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- -------- --------- -------------- --------- --------------
+            Yes   147.39     30.14          30.14     30.14          30.14
+             No   341.54     69.86         100.00     69.86         100.00
+      (Missing)     0.00      0.00         100.00      0.00         100.00
+           <NA>     0.00                               0.00         100.00
+          Total   488.92    100.00         100.00    100.00         100.00
+
+Group: gender = M  
+
+                    Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- -------- --------- -------------- --------- --------------
+            Yes   142.86     29.22          29.22     29.22          29.22
+             No   346.05     70.78         100.00     70.78         100.00
+      (Missing)     0.00      0.00         100.00      0.00         100.00
+           <NA>     0.00                               0.00         100.00
+          Total   488.92    100.00         100.00    100.00         100.00
+
+Group: gender = (Missing)  
+
+                   Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------- --------- -------------- --------- --------------
+            Yes    8.02     36.20          36.20     36.20          36.20
+             No   14.14     63.80         100.00     63.80         100.00
+      (Missing)    0.00      0.00         100.00      0.00         100.00
+           <NA>    0.00                               0.00         100.00
+          Total   22.16    100.00         100.00    100.00         100.00
+
+> with(tobacco, stby(data = age.gr, INDICES = list(gender, smoker), 
+>    FUN = freq))
+Frequencies  
+tobacco$age.gr  
+Type: Factor  
+Group: gender = F, smoker = Yes  
+
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+          18-34     34     23.13          23.13     23.13          23.13
+          35-50     39     26.53          49.66     26.53          49.66
+          51-70     48     32.65          82.31     32.65          82.31
+           71 +     21     14.29          96.60     14.29          96.60
+      (Missing)      5      3.40         100.00      3.40         100.00
+           <NA>      0                               0.00         100.00
+          Total    147    100.00         100.00    100.00         100.00
+
+Group: gender = M, smoker = Yes  
+
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+          18-34     38     26.57          26.57     26.57          26.57
+          35-50     31     21.68          48.25     21.68          48.25
+          51-70     48     33.57          81.82     33.57          81.82
+           71 +     23     16.08          97.90     16.08          97.90
+      (Missing)      3      2.10         100.00      2.10         100.00
+           <NA>      0                               0.00         100.00
+          Total    143    100.00         100.00    100.00         100.00
+
+Group: gender = (Missing), smoker = Yes  
+
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+          18-34      2     25.00          25.00     25.00          25.00
+          35-50      2     25.00          50.00     25.00          50.00
+          51-70      3     37.50          87.50     37.50          87.50
+           71 +      1     12.50         100.00     12.50         100.00
+      (Missing)      0      0.00         100.00      0.00         100.00
+           <NA>      0                               0.00         100.00
+          Total      8    100.00         100.00    100.00         100.00
+
+Group: gender = F, smoker = No  
+
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+          18-34     89     26.02          26.02     26.02          26.02
+          35-50     79     23.10          49.12     23.10          49.12
+          51-70    109     31.87          80.99     31.87          80.99
+           71 +     56     16.37          97.37     16.37          97.37
+      (Missing)      9      2.63         100.00      2.63         100.00
+           <NA>      0                               0.00         100.00
+          Total    342    100.00         100.00    100.00         100.00
+
+Group: gender = M, smoker = No  
+
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+          18-34     92     26.59          26.59     26.59          26.59
+          35-50     87     25.14          51.73     25.14          51.73
+          51-70    103     29.77          81.50     29.77          81.50
+           71 +     56     16.18          97.69     16.18          97.69
+      (Missing)      8      2.31         100.00      2.31         100.00
+           <NA>      0                               0.00         100.00
+          Total    346    100.00         100.00    100.00         100.00
+
+Group: gender = (Missing), smoker = No  
+
+                  Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+--------------- ------ --------- -------------- --------- --------------
+          18-34      3     21.43          21.43     21.43          21.43
+          35-50      3     21.43          42.86     21.43          42.86
+          51-70      6     42.86          85.71     42.86          85.71
+           71 +      2     14.29         100.00     14.29         100.00
+      (Missing)      0      0.00         100.00      0.00         100.00
+           <NA>      0                               0.00         100.00
+          Total     14    100.00         100.00    100.00         100.00
+
+> st_options("reset")
+summarytools options have been reset
+
+> detach("package:summarytools")
+
+> detach("package:magrittr")
+
+> detach("package:forcats")
+
+> detach("package:dplyr")
+[1] "Time elapsed for this script:  7.935504 secs"
+[1] "Time elapsed (total):  2.140158 mins"

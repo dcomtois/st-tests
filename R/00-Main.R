@@ -30,7 +30,8 @@ test_log[nrow(test_log) + 1,] <- list(lubridate::today(),
                                       st_branch,
                                       output_dir, 
                                       ref_dir,
-                                      r_vers)
+                                      r_vers,
+                                      0)
 
 save(test_log, file = paste0(root_dir, "test_log.Rdata"))
 
@@ -39,7 +40,8 @@ save(test_log, file = paste0(root_dir, "test_log.Rdata"))
 
 (output_dir <- tail(test_log$output_dir, 1))
 (dir.create(output_dir, recursive = TRUE, showWarnings = FALSE))
-(testfiles <- grep(dir(paste0(root_dir, "/R")), pattern = "^\\d{2}\\-",
+(testfiles <- grep(dir(paste0(root_dir, "/R")), 
+                   pattern = "^\\d{2}b?\\-.+\\.R$",
                    perl = TRUE, value = TRUE)[-1])
 
 cleanup <- function() {
@@ -50,17 +52,23 @@ cleanup <- function() {
 l <- 1
 f <- 1
 
-# Following objects will not be deleted after each iteration; all others will.
-base_objects <- c(ls(), "base_objects", "reset", "lang", "compare_dirs")
 
+Time <- list()
+Lang <- c("en", "fr", "es", "pt", "tr", "ru")
+Tot1 <- Sys.time()
+
+# Following objects will not be deleted after each iteration; all others will.
+base_objects <- c(ls(), "base_objects", "reset", "lang", "compare_dirs", "")
+#summarytools::st_options(persist = FALSE)
 
 for (l in 1:1) {
-  lang <- c("en", "fr", "es", "pt", "tr", "ru")[l]
-  for (f in 1:11) {
+  lang <- Lang[l]
+  for (f in 1:12) {
     options(width = 200)
+    options(warn = 1)
     options(tibble.print_max = 200)
     options(tibble.width = 200)
-    
+    Time[[lang]] <- list()
     filename <- testfiles[f]
     (output_subdir <- paste(output_dir, lang, sub("\\.R", "", filename), sep = "/"))
     (dir.create(output_subdir, recursive = TRUE, showWarnings = FALSE))
@@ -78,14 +86,22 @@ for (l in 1:1) {
     outfile <- file(outfilename, open = "wt")
     sink(outfile)
     sink(outfile, type = "message")
+    t1 <- Sys.time()
     source(file = paste0(root_dir, '/R/', filename), local = FALSE, echo = TRUE,
            spaced = TRUE, prompt.echo = "> ", chdir = FALSE, encoding = "UTF-8",
            continue.echo = ">", max.deparse.length = 200, width.cutoff = 200, 
            keep.source = TRUE, print.eval = TRUE)
-    
+    t2 <- Sys.time()
+    print(paste("Time elapsed for this script: ", format(t2 - t1)))
+    print(paste("Time elapsed (total): ", format(t2 - Tot1)))
     sink(type = "message")
     sink()
     close(outfile)
+    
+    print(paste("Time elapsed for script", filename, ":", format(t2 - t1)))
+    print(paste("Time elapsed (total): ", format(t2 - Tot1)))
+    Time[[lang]][[f]] <- t2 - t1
+    names(Time[[lang]][f]) <- filename
     
     fff <- file(outfilename, "r")
     content <- readLines(fff)
@@ -113,6 +129,9 @@ for (l in 1:1) {
     setwd(root_dir)
     suppressPackageStartupMessages(library(summarytools))
   }
+  Tot2 <- Sys.time()
+  print(paste("Time elapsed for language", lang, ":", format(Tot2 - Tot1)))
+  Time[[lang]]$Total <- Tot2 - Tot1
 }
 
 compare_dirs <- function(lang) {
